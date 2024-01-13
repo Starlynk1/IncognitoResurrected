@@ -1,6 +1,8 @@
-## Interface: 60100
+## Interface: 11505
 ## Title: Incognito Resurrected
 ## Notes: Adds your name to chat messages
+## IconTexture: Interface\Icons\ability_stealth
+
 ## Author: info@starlynk.net, original author: daniel@pew.cc, nyyr
 ## Version: 1.0
 ## SavedVariables: IncognitoDB
