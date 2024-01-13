@@ -85,7 +85,7 @@ local Defaults = {
 		instance_chat = false,
 		debug = false,
 		channel = nil,
-		hideOnMatchingCharName = false,
+		hideOnMatchingCharName = true,
 	},
 }
 
