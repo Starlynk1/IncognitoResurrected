@@ -1,0 +1,19 @@
+## Interface: 60100
+## Title: Incognito
+## Notes: Adds your name to chat messages
+## Author: daniel@pew.cc, nyyr
+## Version: 1.4.1
+## SavedVariables: IncognitoDB
+## OptionalDeps: Ace3
+## X-Curse-Packaged-Version: v1.4.1
+## X-Curse-Project-Name: Incognito
+## X-Curse-Project-ID: incognito
+## X-Curse-Repository-ID: wow/incognito/mainline
+
+#@no-lib-strip@
+embeds.xml
+#@end-no-lib-strip@
+
+Incognito_enUS.lua
+Incognito_deDE.lua
+Incognito.lua
