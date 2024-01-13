@@ -1,14 +1,10 @@
 ## Interface: 60100
-## Title: Incognito
+## Title: Incognito Resurrected
 ## Notes: Adds your name to chat messages
-## Author: daniel@pew.cc, nyyr
-## Version: 1.4.1
+## Author: info@starlynk.net, original author: daniel@pew.cc, nyyr
+## Version: 1.0
 ## SavedVariables: IncognitoDB
 ## OptionalDeps: Ace3
-## X-Curse-Packaged-Version: v1.4.1
-## X-Curse-Project-Name: Incognito
-## X-Curse-Project-ID: incognito
-## X-Curse-Repository-ID: wow/incognito/mainline
 
 #@no-lib-strip@
 embeds.xml
