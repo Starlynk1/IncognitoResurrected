@@ -1,4 +1,4 @@
-# Incognito
+# Incognito Resurrected
 
 Incognito adds you name in front of your chat messages. Can be enabled for guild (and officer), party and raid chat messages.
 
