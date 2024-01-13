@@ -1,4 +1,4 @@
-## Interface: 11505
+## Interface: 100205
 ## Title: Incognito Resurrected
 ## Notes: Adds your name to chat messages
 ## IconTexture: Interface\Icons\ability_stealth
