@@ -1,8 +1,10 @@
 ------------------------------------------------------------------------
-initial release v1
+Incognito Resurrected - initial release v1
 - added credits.md
 - updated toc
+- added toc's for all versions
 
+Tagged as v1.0
 ------------------------------------------------------------------------
 r35 | nyyr | 2015-02-25 21:36:36 +0000 (Wed, 25 Feb 2015) | 1 line
 Changed paths:
