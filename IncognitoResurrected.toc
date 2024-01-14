@@ -12,6 +12,6 @@
 embeds.xml
 #@end-no-lib-strip@
 
-Incognito_enUS.lua
-Incognito_deDE.lua
-Incognito.lua
+IncognitoResurrected_enUS.lua
+IncognitoResurrected_deDE.lua
+IncognitoResurrected.lua
