@@ -1,4 +1,4 @@
-local L = LibStub("AceLocale-3.0"):NewLocale("Incognito", "enUS", true)
+local L = LibStub("AceLocale-3.0"):NewLocale("IncognitoResurrected", "enUS", true)
 
 if not L then return end
 
@@ -32,4 +32,4 @@ L["channel"] = "Kanal"
 L["channel_desc"] = "Deinen Namen in diesem benutzerdefinierten Kanal anzeigen."
 
 L["hideOnMatchingCharName"] = "Name nicht anzeigen, wenn er mit dem Charakternamen übereinstimmt"
-L["hideOnMatchingCharName_desc"] = "Wenn der oben angegebene Name gleich dem Namen deines aktuellen Charakters ist, fügt ihn Incognito nicht hinzu, wenn diese Option ausgewählt ist."
+L["hideOnMatchingCharName_desc"] = "Wenn der oben angegebene Name gleich dem Namen deines aktuellen Charakters ist, fügt ihn IncognitoResurrected nicht hinzu, wenn diese Option ausgewählt ist."

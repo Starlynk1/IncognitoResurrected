@@ -2,7 +2,7 @@
 ---      Module      ---
 ------------------------
 
-Incognito  = LibStub("AceAddon-3.0"):NewAddon(	"Incognito",
+IncognitoResurrected  = LibStub("AceAddon-3.0"):NewAddon(	"IncognitoResurrected",
 												"AceConsole-3.0",
 												"AceEvent-3.0",
 												"AceHook-3.0");
@@ -12,12 +12,12 @@ Incognito  = LibStub("AceAddon-3.0"):NewAddon(	"Incognito",
 --      Localization      --
 ----------------------------
 
-local L = LibStub("AceLocale-3.0"):GetLocale("Incognito", true)
+local L = LibStub("AceLocale-3.0"):GetLocale("IncognitoResurrected", true)
 
 local Options = {
 	type = "group",
-	get = function(item) return Incognito.db.profile[item[#item]] end,
-	set = function(item, value) Incognito.db.profile[item[#item]] = value end,
+	get = function(item) return IncognitoResurrected.db.profile[item[#item]] end,
+	set = function(item, value) IncognitoResurrected.db.profile[item[#item]] = value end,
 	args = {
 		name = {
 			order = 1,
@@ -92,9 +92,9 @@ local Defaults = {
 
 local SlashOptions = {
 	type = "group",
-	handler = Incognito,
-	get = function(item) return Incognito.db.profile[item[#item]] end,
-	set = function(item, value) Incognito.db.profile[item[#item]] = value end,
+	handler = IncognitoResurrected,
+	get = function(item) return IncognitoResurrected.db.profile[item[#item]] end,
+	set = function(item, value) IncognitoResurrected.db.profile[item[#item]] = value end,
 	args = {
 		enable = {
 			type = "toggle",
@@ -111,7 +111,7 @@ local SlashOptions = {
 			name = L["config"],
 			desc = L["config_desc"],
 			func = function()
-				InterfaceOptionsFrame_OpenToCategory(Incognito.optionFrames.main)
+				InterfaceOptionsFrame_OpenToCategory(IncognitoResurrected.optionFrames.main)
 			end,
 		},
 	},
@@ -119,7 +119,7 @@ local SlashOptions = {
 
 local SlashCmds = {
   "inc",
-  "incognito",
+  "IncognitoResurrected",
 };
 
 local character_name
@@ -128,24 +128,24 @@ local character_name
 ---      Init      ---
 ----------------------
 
-function Incognito:OnInitialize()
+function IncognitoResurrected:OnInitialize()
 	-- Load our database.
-	self.db = LibStub("AceDB-3.0"):New("IncognitoDB", Defaults, "Default")
+	self.db = LibStub("AceDB-3.0"):New("IncognitoResurrectedDB", Defaults, "Default")
 
 	-- Set up our config options.
 	local profiles = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db)
   
 	local config = LibStub("AceConfig-3.0")
-	config:RegisterOptionsTable("Incognito", SlashOptions, SlashCmds)
+	config:RegisterOptionsTable("IncognitoResurrected", SlashOptions, SlashCmds)
 
 	local registry = LibStub("AceConfigRegistry-3.0")
-	registry:RegisterOptionsTable("Incognito Options", Options)
-	registry:RegisterOptionsTable("Incognito Profiles", profiles);
+	registry:RegisterOptionsTable("IncognitoResurrected Options", Options)
+	registry:RegisterOptionsTable("IncognitoResurrected Profiles", profiles);
 
 	local dialog = LibStub("AceConfigDialog-3.0");
 	self.optionFrames = {
-		main = dialog:AddToBlizOptions(	"Incognito Options", "Incognito"),
-		profiles = dialog:AddToBlizOptions(	"Incognito Profiles", "Profiles", "Incognito");
+		main = dialog:AddToBlizOptions(	"IncognitoResurrected Options", "IncognitoResurrected"),
+		profiles = dialog:AddToBlizOptions(	"IncognitoResurrected Profiles", "Profiles", "IncognitoResurrected");
 	}
 	
 	-- Hook SendChatMessage function
@@ -161,7 +161,7 @@ end
 ---      Event Handlers      ---
 --------------------------------
 
-function Incognito:SendChatMessage(msg, chatType, language, channel)
+function IncognitoResurrected:SendChatMessage(msg, chatType, language, channel)
 	if self.db.profile.enable then
 		if self.db.profile.name and self.db.profile.name ~= "" then
 			if (not self.db.profile.hideOnMatchingCharName) or (self.db.profile.name ~= character_name) then
@@ -192,7 +192,7 @@ end
 ---      Functions      ---
 ---------------------------
 
-function Incognito:Safe_Print(msg)
+function IncognitoResurrected:Safe_Print(msg)
 	if self.db.profile.debug then
 		self:Print(msg)
 	end

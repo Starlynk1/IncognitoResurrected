@@ -1,4 +1,4 @@
-local L = LibStub("AceLocale-3.0"):NewLocale("Incognito", "enUS", true)
+local L = LibStub("AceLocale-3.0"):NewLocale("IncognitoResurrected", "enUS", true)
 
 if not L then return end
 
@@ -32,4 +32,4 @@ L["channel"] = "Channel"
 L["channel_desc"] = "Add name to chat messages in this custom channel."
 
 L["hideOnMatchingCharName"] = "Hide name if it matches your character's name"
-L["hideOnMatchingCharName_desc"] = "If the name specified above matches your current character's name, Incognito will not add it again if this option is checked."
+L["hideOnMatchingCharName_desc"] = "If the name specified above matches your current character's name, IncognitoResurrected will not add it again if this option is checked."
