@@ -9,7 +9,7 @@ on:
 
 env:
   CLASSIC_VERSION: 11505
-  - BURNING_CRUSADE_VERSION: 20504
+  BURNING_CRUSADE_VERSION: 20504
   WRATH_VERSION: 30403
 
 jobs:
@@ -102,15 +102,15 @@ jobs:
         asset_name: ${{steps.init.outputs.tag_name}}-Classic.zip
         asset_content_type: application/zip
 
-    - name: Add Burning Crusade zip to release
-    - uses: actions/upload-release-asset@v1
-    - env:
-    -   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - with:
-    -   upload_url: ${{ steps.create_release.outputs.upload_url }}
-    -   asset_path: .releases/${{steps.init.outputs.tag_name}}-BurningCrusade.zip
-    -   asset_name: ${{steps.init.outputs.tag_name}}-BurningCrusade.zip
-    -   asset_content_type: application/zip
+     name: Add Burning Crusade zip to release
+     uses: actions/upload-release-asset@v1
+     env:
+       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+     with:
+       upload_url: ${{ steps.create_release.outputs.upload_url }}
+       asset_path: .releases/${{steps.init.outputs.tag_name}}-BurningCrusade.zip
+       asset_name: ${{steps.init.outputs.tag_name}}-BurningCrusade.zip
+       asset_content_type: application/zip
 
     - name: Add Wrath zip to release
       uses: actions/upload-release-asset@v1
