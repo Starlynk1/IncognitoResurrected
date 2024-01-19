@@ -1,0 +1,5 @@
+optional-dependencies:
+  - Ace3
+
+ignore:
+  - .github
