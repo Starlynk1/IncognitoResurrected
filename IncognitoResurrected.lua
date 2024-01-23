@@ -72,7 +72,7 @@ local Options = {
 			type = "toggle",
 			name = L["hideOnMatchingCharName"],
 			desc = L["hideOnMatchingCharName_desc"],
-		}
+		},
 	},
 }
 
@@ -130,7 +130,7 @@ local character_name
 
 function IncognitoResurrected:OnInitialize()
 	-- Load our database.
-	self.db = LibStub("AceDB-3.0"):New("IncognitoResurrectedDB", Defaults, "Default")
+	self.db = LibStub("AceDB-3.0"):New("IncognitoResurrectedDB", Defaults, true)
 
 	-- Set up our config options.
 	local profiles = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db)
