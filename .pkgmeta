@@ -5,3 +5,4 @@ optional-dependencies:
 
 ignore:
   - .github
+  - .env
