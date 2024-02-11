@@ -118,7 +118,7 @@ local SlashOptions = {
 
 local SlashCmds = {
   "inc",
-  "incognito"
+  "incognito",
   "IncognitoResurrected",
 };
 
