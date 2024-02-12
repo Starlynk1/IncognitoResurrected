@@ -111,7 +111,8 @@ local SlashOptions = {
 			name = L["config"],
 			desc = L["config_desc"],
 			func = function()
-				InterfaceOptionsFrame_OpenToCategory(IncognitoResurrected.optionFrames.main),
+				InterfaceOptionsFrame_OpenToCategory(IncognitoResurrected.optionFrames.main)
+			end,
 		},
 	},
 }
