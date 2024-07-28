@@ -1,4 +1,4 @@
-## Interface: 110000
+## Interface: 110002
 ## Title: Incognito Resurrected
 ## Notes: Adds your name to chat messages
 
@@ -9,7 +9,7 @@
 
 ## X-Curse-Project-ID: 961634
 
-## Interface-Classic: 11502
+## Interface-Classic: 11503
 ## Interface-Cataclysm: 40400
 
 #@no-lib-strip@
