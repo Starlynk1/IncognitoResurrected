@@ -7,7 +7,6 @@ IncognitoResurrected  = LibStub("AceAddon-3.0"):NewAddon(	"IncognitoResurrected"
 												"AceEvent-3.0",
 												"AceHook-3.0");
 
-
 ----------------------------
 --      Localization      --
 ----------------------------
@@ -97,25 +96,27 @@ local SlashOptions = {
 	set = function(item, value) IncognitoResurrected.db.profile[item[#item]] = value end,
 	args = {
 		enable = {
-			type = "toggle",
 			name = L["enable"],
 			desc = L["enable_desc"],
+			type = "toggle",
 		},
 		name = {
-			type = "input",
 			name = L["name"],
 			desc = L["name_desc"],
+			type = "input",
 		},
 		config = {
-			type = "execute",
 			name = L["config"],
 			desc = L["config_desc"],
+			guiHidden = true,
+			type = "execute",
 			func = function()
-				InterfaceOptionsFrame_OpenToCategory(IncognitoResurrected.optionFrames.main)
+				InterfaceOptionsFrame_OpenToCategory(IncognitoResurrected)
 			end,
-		},
+		}
 	},
 }
+
 
 local SlashCmds = {
   "inc",
@@ -197,4 +198,16 @@ function IncognitoResurrected:Safe_Print(msg)
 	if self.db.profile.debug then
 		self:Print(msg)
 	end
+end
+
+function InterfaceOptionsFrame_OpenToCategory(IncognitoResurrected)
+	if type(IncognitoResurrected) == "string" then
+		return Settings.OpenToCategory(IncognitoResurrected);
+	elseif type(IncognitoResurrected) == "table" then
+		local frame = IncognitoResurrected;
+		local category = frame.name;
+		if category and type(category) == "string" then
+			return Settings.OpenToCategory(category);
+		end
+	end	
 end

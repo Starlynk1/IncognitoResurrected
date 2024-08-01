@@ -23,7 +23,7 @@ L["instance_chat"] = "Instance"
 L["instance_chat_desc"] = "Add name to instance chat messages, e.g., LFR and battlegrounds (/i)."
 
 L["config"] = "Configuration"
-L["config_desc"] = "Open configuration dialog."
+L["config_desc"] = "Open configuration window."
 
 L["debug"] = "Debug"
 L["debug_desc"] = "Enable debugging messages output. You probably don't want to enable this."
