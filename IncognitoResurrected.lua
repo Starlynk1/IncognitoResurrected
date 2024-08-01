@@ -105,7 +105,7 @@ local SlashOptions = {
 			desc = L["name_desc"],
 			type = "input",
 		},
---[[ 		config = {
+	 		config = {
 			name = L["config"],
 			desc = L["config_desc"],
 			guiHidden = true,
@@ -113,7 +113,7 @@ local SlashOptions = {
 			func = function()
 				InterfaceOptionsFrame_OpenToCategory(IncognitoResurrected)
 			end,
-		} ]]
+		}
 	},
 }
 
