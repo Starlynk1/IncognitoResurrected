@@ -33,6 +33,3 @@ L["channel_desc"] = "Deinen Namen in diesem benutzerdefinierten Kanal anzeigen."
 
 L["hideOnMatchingCharName"] = "Name nicht anzeigen, wenn er mit dem Charakternamen übereinstimmt"
 L["hideOnMatchingCharName_desc"] = "Wenn der oben angegebene Name gleich dem Namen deines aktuellen Charakters ist, fügt ihn IncognitoResurrected nicht hinzu, wenn diese Option ausgewählt ist."
-
-L["config"] = "Open Configuration"
-L["config_desc"] = "Opens configuration window"
