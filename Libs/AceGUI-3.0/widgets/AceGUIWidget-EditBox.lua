@@ -1,7 +1,7 @@
 --[[-----------------------------------------------------------------------------
 EditBox Widget
 -------------------------------------------------------------------------------]]
-local Type, Version = "EditBox", 25
+local Type, Version = "EditBox", 29
 local AceGUI = LibStub and LibStub("AceGUI-3.0", true)
 if not AceGUI or (AceGUI:GetWidgetVersion(Type) or 0) >= Version then return end
 
@@ -10,13 +10,9 @@ local tostring, pairs = tostring, pairs
 
 -- WoW APIs
 local PlaySound = PlaySound
-local GetCursorInfo, ClearCursor, GetSpellInfo = GetCursorInfo, ClearCursor, GetSpellInfo
+local GetCursorInfo, ClearCursor = GetCursorInfo, ClearCursor
 local CreateFrame, UIParent = CreateFrame, UIParent
 local _G = _G
-
--- Global vars/functions that we don't upvalue since they might get hooked, or upgraded
--- List them here for Mikk's FindGlobals script
--- GLOBALS: AceGUIEditBoxInsertLink, ChatFontNormal, OKAY
 
 --[[-----------------------------------------------------------------------------
 Support functions
@@ -73,31 +69,33 @@ local function EditBox_OnEnterPressed(frame)
 	local value = frame:GetText()
 	local cancel = self:Fire("OnEnterPressed", value)
 	if not cancel then
-		PlaySound("igMainMenuOptionCheckBoxOn")
+		PlaySound(856) -- SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON
 		HideButton(self)
 	end
 end
 
 local function EditBox_OnReceiveDrag(frame)
 	local self = frame.obj
-	local type, id, info = GetCursorInfo()
+	local type, id, info, extra = GetCursorInfo()
+	local name
 	if type == "item" then
-		self:SetText(info)
-		self:Fire("OnEnterPressed", info)
-		ClearCursor()
+		name = info
 	elseif type == "spell" then
-		local name = GetSpellInfo(id, info)
-		self:SetText(name)
-		self:Fire("OnEnterPressed", name)
-		ClearCursor()
+		if C_Spell and C_Spell.GetSpellName then
+			name = C_Spell.GetSpellName(extra)
+		else
+			name = GetSpellInfo(id, info)
+		end
 	elseif type == "macro" then
-		local name = GetMacroInfo(id)
+		name = GetMacroInfo(id)
+	end
+	if name then
 		self:SetText(name)
 		self:Fire("OnEnterPressed", name)
 		ClearCursor()
+		HideButton(self)
+		AceGUI:ClearFocus()
 	end
-	HideButton(self)
-	AceGUI:ClearFocus()
 end
 
 local function EditBox_OnTextChanged(frame)
@@ -200,6 +198,10 @@ local methods = {
 		if not self.frame:IsShown() then
 			self.frame:SetScript("OnShow", Frame_OnShowFocus)
 		end
+	end,
+
+	["HighlightText"] = function(self, from, to)
+		self.editbox:HighlightText(from, to)
 	end
 }
 
