@@ -12,6 +12,7 @@ L["enable_desc"] = "Enable adding your name to chat messages."
 
 L["guild"] = "Guild"
 L["guild_desc"] = "Add name to guild chat messages (/g and /o)."
+L["guildinfo"] = "Guild chat messages are generated from the Chat frame, not the Guild frame."
 
 L["party"] = "Party"
 L["party_desc"] = "Add name to party chat messages (/p)."
@@ -33,3 +34,5 @@ L["channel_desc"] = "Add name to chat messages in this custom channel."
 
 L["hideOnMatchingCharName"] = "Hide name if it matches your character's name"
 L["hideOnMatchingCharName_desc"] = "If the name specified above matches your current character's name, IncognitoResurrected will not add it again if this option is checked."
+
+L["channel_info_text"] = "The 'Say' channel is not an acceptable option. This is a limitation within the Blizzard API"

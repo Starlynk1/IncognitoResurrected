@@ -14,63 +14,100 @@ IncognitoResurrected  = LibStub("AceAddon-3.0"):NewAddon(	"IncognitoResurrected"
 local L = LibStub("AceLocale-3.0"):GetLocale("IncognitoResurrected", true)
 
 local Options = {
+	name = "Incognito Resurrected",
 	type = "group",
-	get = function(item) return IncognitoResurrected.db.profile[item[#item]] end,
-	set = function(item, value) IncognitoResurrected.db.profile[item[#item]] = value end,
 	args = {
-		name = {
-			order = 1,
-			type = "input",
-			name = L["name"],
-			desc = L["name_desc"],
+		generalSettings = {
+		name = "General Settings",
+		type = "group",
+		inline = true,
+		order = 0,
+		get = function(item) return IncognitoResurrected.db.profile[item[#item]] end,
+		set = function(item, value) IncognitoResurrected.db.profile[item[#item]] = value end,
+		args = {
+				name = {
+				order = 1,
+				type = "input",
+				name = L["name"],
+				desc = L["name_desc"],
+			},
+				enable = {	
+				order = 2,
+				type = "toggle",
+				name = L["enable"],
+				desc = L["enable_desc"],
+				width = "full",
+			},	
+				hideOnMatchingCharName = {
+				order = 3,
+				type = "toggle",
+				name = L["hideOnMatchingCharName"],
+				desc = L["hideOnMatchingCharName_desc"],
+				width = "full",
+			},
 		},
-		enable = {	
-			order = 2,
-			type = "toggle",
-			name = L["enable"],
-			desc = L["enable_desc"],
-		},
-		debug = {
-			order = 3,
-			type = "toggle",
-			name = L["debug"],
-			desc = L["debug_desc"],
-		},
-		guild = {
-			order = 4,
-			type = "toggle",
-			name = L["guild"],
-			desc = L["guild_desc"],
-		},
-		party = {
-			order = 5,
-			type = "toggle",
-			name = L["party"],
-			desc = L["party_desc"],
-		},
-		raid = {
-			order = 6,
-			type = "toggle",
-			name = L["raid"],
-			desc = L["raid_desc"],
-		},
-		instance_chat = {
-			order = 7,
-			type = "toggle",
-			name = L["instance_chat"],
-			desc = L["instance_chat_desc"],
-		},
-		channel = {
-			order = 8,
-			type = "input",
-			name = L["channel"],
-			desc = L["channel_desc"],
-		},
-		hideOnMatchingCharName = {
-			order = 9,
-			type = "toggle",
-			name = L["hideOnMatchingCharName"],
-			desc = L["hideOnMatchingCharName_desc"],
+	},
+		generalOptions = {
+		name = "Options",
+		type = "group",
+		inline = true,
+		order = 1,
+		get = function(item) return IncognitoResurrected.db.profile[item[#item]] end,
+		set = function(item, value) IncognitoResurrected.db.profile[item[#item]] = value end,
+		args = {
+			guild = {
+				order = 1,
+				type = "toggle",
+				width = "full",
+				name = L["guild"],
+				desc = L["guild_desc"],
+				},
+			guildinfo = {
+				order = 2,
+				type = "description",
+				name = "|cFFFFA500" .. L["guildinfo"],
+				},
+			party = {
+				order = 3,
+				type = "toggle",
+				width = "full",
+				name = L["party"],
+				desc = L["party_desc"],	
+				},
+			raid = {
+				order = 4,
+				type = "toggle",
+				width = "full",
+				name = L["raid"],
+				desc = L["raid_desc"],
+				},
+			instance_chat = {
+				order = 5,
+				type = "toggle",
+				width = "full",
+				name = L["instance_chat"],
+				desc = L["instance_chat_desc"],				
+				},
+			channel = {
+				order = 6,
+				type = "input",
+				name = L["channel"],
+				desc = L["channel_desc"],
+				},
+			channelinfo = {
+				order = 7, 
+				type = "description",
+				name = "|cFFFFA500" .. L["channel_info_text"],
+				
+				},
+			debug = {
+				order = 8,
+				type = "toggle",
+				width = "full",
+				name = L["debug"],
+				desc = L["debug_desc"],
+				},				
+			},
 		},
 	},
 }
@@ -105,7 +142,7 @@ local SlashOptions = {
 			desc = L["name_desc"],
 			type = "input",
 		},
-	 		config = {
+	 	config = {
 			name = L["config"],
 			desc = L["config_desc"],
 			guiHidden = true,
@@ -113,7 +150,7 @@ local SlashOptions = {
 			func = function()
 				InterfaceOptionsFrame_OpenToCategory(IncognitoResurrected)
 			end,
-		}
+		},
 	},
 }
 
@@ -173,12 +210,12 @@ function IncognitoResurrected:SendChatMessage(msg, chatType, language, channel)
 					(self.db.profile.party and chatType == "PARTY") or
 					(self.db.profile.instance_chat and chatType == "INSTANCE_CHAT")
 				then
-					msg = "(" .. self.db.profile.name .. "): " .. msg
+					msg = "(" .. self.db.profile.name .. ") " .. msg
 
 				elseif self.db.profile.channel and chatType == "CHANNEL" then
 					local id, chname = GetChannelName(channel)
 					if strupper(self.db.profile.channel) == strupper(chname) then
-						msg = "(" .. self.db.profile.name .. "): " .. msg
+						msg = "(" .. self.db.profile.name .. ") " .. msg
 					end
 				end
 				

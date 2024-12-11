@@ -12,6 +12,7 @@ L["enable_desc"] = "Aktiviert das Anzeigen deines Namens bei deinen Chatnachrich
 
 L["guild"] = "Gilde"
 L["guild_desc"] = "Deinen Namen bei Gildenchatnachrichten anzeigen (/g und /o)."
+L["guildinfo"] = "Guild chat messages are generated from the Chat frame, not the Guild frame."
 
 L["party"] = "Gruppe"
 L["party_desc"] = "Deinen Namen bei Gruppenchatnachrichten anzeigen (/p)."
@@ -33,3 +34,5 @@ L["channel_desc"] = "Deinen Namen in diesem benutzerdefinierten Kanal anzeigen."
 
 L["hideOnMatchingCharName"] = "Name nicht anzeigen, wenn er mit dem Charakternamen übereinstimmt"
 L["hideOnMatchingCharName_desc"] = "Wenn der oben angegebene Name gleich dem Namen deines aktuellen Charakters ist, fügt ihn IncognitoResurrected nicht hinzu, wenn diese Option ausgewählt ist."
+
+L["channel_info_text"] = "The 'Say' channel is not an acceptable option. This is a limitation within the Blizzard API"
