@@ -9,7 +9,7 @@
 
 ## X-Curse-Project-ID: 961634
 
-## Interface-Classic: 11505
+## Interface-Classic: 11506
 ## Interface-Cataclysm: 40401
 
 #@no-lib-strip@
