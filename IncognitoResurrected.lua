@@ -1,5 +1,10 @@
 ------------------------
----      Module      ---
+---		Version      ---
+------------------------
+// Version: 1.1.1
+
+------------------------
+---		Module       ---
 ------------------------
 
 IncognitoResurrected  = LibStub("AceAddon-3.0"):NewAddon(	"IncognitoResurrected",
