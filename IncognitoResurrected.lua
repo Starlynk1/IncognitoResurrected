@@ -132,6 +132,7 @@ local Defaults = {
 		party = false,
 		raid = false,
 		instance_chat = false,
+		world_chat = false,
 		debug = false,
 		channel = nil,
 		hideOnMatchingCharName = true,
