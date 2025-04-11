@@ -1,7 +1,8 @@
 ------------------------
 ---		Version      ---
+---		 1.1.1       ---
 ------------------------
-// Version: 1.1.1
+
 
 ------------------------
 ---		Module       ---
@@ -93,20 +94,27 @@ local Options = {
 				name = L["instance_chat"],
 				desc = L["instance_chat_desc"],				
 				},
-			channel = {
+			world_chat = {
 				order = 6,
+				type = "toggle",
+				width = "full",
+				name = L["world_chat"],
+				desc = L["world_chat_desc"]
+			}
+			channel = {
+				order = 7,
 				type = "input",
 				name = L["channel"],
 				desc = L["channel_desc"],
 				},
 			channelinfo = {
-				order = 7, 
+				order = 8, 
 				type = "description",
 				name = "|cFFFFA500" .. L["channel_info_text"],
 				
 				},
 			debug = {
-				order = 8,
+				order = 9,
 				type = "toggle",
 				width = "full",
 				name = L["debug"],
@@ -214,6 +222,7 @@ function IncognitoResurrected:SendChatMessage(msg, chatType, language, channel)
 					(self.db.profile.raid and chatType == "RAID") or 
 					(self.db.profile.party and chatType == "PARTY") or
 					(self.db.profile.instance_chat and chatType == "INSTANCE_CHAT")
+					(self.db.profile.world_chat and chatType == "WORLD_CHAT")
 				then
 					msg = "(" .. self.db.profile.name .. ") " .. msg
 

@@ -1,4 +1,4 @@
-## Interface: 110100
+## Interface: 110105
 ## Title: Incognito Resurrected
 ## Notes: Adds your name to chat messages
 

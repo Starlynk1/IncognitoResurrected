@@ -1,3 +1,8 @@
+------------------------
+---		Version      ---
+---		 1.1.1       ---
+------------------------
+
 local L = LibStub("AceLocale-3.0"):NewLocale("IncognitoResurrected", "enUS", true)
 
 if not L then return end
@@ -22,6 +27,9 @@ L["raid_desc"] = "Add name to raid chat messages (/raid)."
 
 L["instance_chat"] = "Instance"
 L["instance_chat_desc"] = "Add name to instance chat messages, e.g., LFR and battlegrounds (/i)."
+
+L["world_chat"] = "World Chat"
+L["world_chat_desc"] = "Add name to world chat messages, e.g., Say, LocalDefense, Trade, Services.\n-- This is an all or none option, you cannot select which World Channel to enable/disable"
 
 L["config"] = "Configuration"
 L["config_desc"] = "Open configuration window."
