@@ -136,17 +136,17 @@ local Options = {
 }
 
 local Defaults = {
-	profile = {
-		enable = true,
-		guild = true,
-		party = false,
-		raid = false,
-		instance_chat = false,
-		world_chat = false,
-		debug = false,
-		channel = nil,
-		hideOnMatchingCharName = true,
-	},
+    profile = {
+        enable = true,
+        guild = true,
+        party = false,
+        raid = false,
+        instance_chat = false,
+        world_chat = false,
+        debug = false,
+        channel = nil,
+        hideOnMatchingCharName = true
+    }
 }
 
 local SlashOptions = {
@@ -215,35 +215,39 @@ end
 --------------------------------
 
 function IncognitoResurrected:SendChatMessage(msg, chatType, language, channel)
-	if self.db.profile.enable then
-		if self.db.profile.name and self.db.profile.name ~= "" then
-			if (not self.db.profile.hideOnMatchingCharName) or (self.db.profile.name ~= character_name) then
+    if self.db.profile.enable then
+        if self.db.profile.name and self.db.profile.name ~= "" then
+            if (not self.db.profile.hideOnMatchingCharName) or
+                (self.db.profile.name ~= character_name) then
 
-				if  (self.db.profile.guild and (chatType == "GUILD" or chatType == "OFFICER")) or
-					(self.db.profile.raid and chatType == "RAID") or 
-					(self.db.profile.party and chatType == "PARTY") or
-					(self.db.profile.instance_chat and chatType == "INSTANCE_CHAT")
-				then
-					msg = "(" .. self.db.profile.name .. ") " .. msg
-					
-				-- Use World Chat Channels	
-				elseif self.db.profile.world_chat and chatType == "CHANNEL" then
-					msg = "(" .. self.db.profile.name .. ") " .. msg
-					
-				-- Use Specified Chat Channel, commas are not allowed	
-				elseif self.db.profile.channel and chatType == "CHANNEL" then
-					local id, chname = GetChannelName(channel)
-					if strupper(self.db.profile.channel) == strupper(chname) then
-						msg = "(" .. self.db.profile.name .. ") " .. msg
-					end
-				end
-				
-			end
-		end
-	end
-	
-	-- Call original function
-	self.hooks.SendChatMessage(msg, chatType, language, channel)
+                if (self.db.profile.guild and
+                    (chatType == "GUILD" or chatType == "OFFICER")) or
+                    (self.db.profile.raid and chatType == "RAID") or
+                    (self.db.profile.party and chatType == "PARTY") or
+                    (self.db.profile.instance_chat and chatType ==
+                        "INSTANCE_CHAT") then
+                    msg = "(" .. self.db.profile.name .. ") " .. msg
+
+                    -- Use World Chat Channels	
+                elseif self.db.profile.world_chat and chatType == "CHANNEL" then
+                    msg = "(" .. self.db.profile.name .. ") " .. msg
+
+                    -- Use Specified Chat Channel, commas are allowed	
+                elseif self.db.profile.channel and chatType == "CHANNEL" then
+                    for i in string.gmatch(self.db.profile.channel, '([^,]+)') do
+						i = string.trim(i)
+                        local id, chname = GetChannelName(channel)
+                        if strupper(i) == strupper(chname) then
+                            msg = "(" .. self.db.profile.name .. ") " .. msg
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    -- Call original function
+    self.hooks.SendChatMessage(msg, chatType, language, channel)
 end
 
 ---------------------------
