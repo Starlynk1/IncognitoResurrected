@@ -136,16 +136,17 @@ local Options = {
 }
 
 local Defaults = {
-    profile = {
-        enable = true,
-        guild = true,
-        party = false,
-        raid = false,
-        instance_chat = false,
-        debug = false,
-        channel = nil,
-        hideOnMatchingCharName = true
-    }
+	profile = {
+		enable = true,
+		guild = true,
+		party = false,
+		raid = false,
+		instance_chat = false,
+		world_chat = false,
+		debug = false,
+		channel = nil,
+		hideOnMatchingCharName = true,
+	},
 }
 
 local SlashOptions = {
