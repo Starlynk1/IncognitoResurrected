@@ -232,7 +232,7 @@ function IncognitoResurrected:SendChatMessage(msg, chatType, language, channel)
                 elseif self.db.profile.world_chat and chatType == "CHANNEL" then
                     msg = "(" .. self.db.profile.name .. ") " .. msg
 
-                    -- Use Specified Chat Channel, commas are not allowed	
+                    -- Use Specified Chat Channel, commas are allowed	
                 elseif self.db.profile.channel and chatType == "CHANNEL" then
                     for i in string.gmatch(self.db.profile.channel, '([^,]+)') do
 						i = string.trim(i)
