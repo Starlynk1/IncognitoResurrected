@@ -29,7 +29,10 @@ L["instance_chat"] = "Instance"
 L["instance_chat_desc"] = "Add name to instance chat messages, e.g., LFR and battlegrounds (/i)."
 
 L["world_chat"] = "World Chat"
-L["world_chat_desc"] = "Add name to world chat messages, e.g., Say, LocalDefense, Trade, Services.\n-- This is an all or none option, you cannot select which World Channel to enable/disable"
+L["world_chat_desc"] = "Add name to world chat messages, e.g., General, Trade, LocalDefense and Services.\n-- This is an all or none option, you cannot select which World Channel to enable/disable"
+
+L["world_chat_info"] = "World Chat"
+L["world_chat_info_desc"] = "Add name to world chat messages, e.g., General, Trade, LocalDefense and Services.\n-- This is an all or none option, you cannot select which World Channel to enable/disable"
 
 L["config"] = "Configuration"
 L["config_desc"] = "Open configuration window."
@@ -38,7 +41,7 @@ L["debug"] = "Debug"
 L["debug_desc"] = "Enable debugging messages output. You probably don't want to enable this."
 
 L["channel"] = "Channel"
-L["channel_desc"] = "Add name to chat messages in this custom channel."
+L["channel_desc"] = "Add name to chat messages in this custom channel. Single Channel Only."
 
 L["hideOnMatchingCharName"] = "Hide name if it matches your character's name"
 L["hideOnMatchingCharName_desc"] = "If the name specified above matches your current character's name, IncognitoResurrected will not add it again if this option is checked."

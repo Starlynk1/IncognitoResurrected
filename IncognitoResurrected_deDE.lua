@@ -29,7 +29,10 @@ L["instance_chat"] = "Instanz"
 L["instance_chat_desc"] = "Deinen Namen bei Instanznachrichten anzeigen, z.B. im Schlachtzugsbrowser und im Schlachtfeld (/i)."
 
 L["world_chat"] = "World Chat"
-L["world_chat_desc"] = "Add name to world chat messages, e.g., Say, LocalDefense, Trade, Services."
+L["world_chat_desc"] = "Add name to world chat messages, e.g., General, Trade, LocalDefense and Services.\n-- This is an all or none option, you cannot select which World Channel to enable/disable"
+
+L["world_chat_info"] = "World Chat"
+L["world_chat_info_desc"] = "Add name to world chat messages, e.g., General, Trade, LocalDefense and Services.\n-- This is an all or none option, you cannot select which World Channel to enable/disable"
 
 L["config"] = "Konfiguration"
 L["config_desc"] = "Konfigurationsdialog öffnen."
