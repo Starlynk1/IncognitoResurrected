@@ -1,9 +1,9 @@
-## Interface: 110100
+## Interface: 110105
 ## Title: Incognito Resurrected
 ## Notes: Adds your name to chat messages
 
 ## Author: info@starlynk.net, original author: daniel@pew.cc, nyyr
-## Version: 1.1
+## Version: 1.1.1
 ## SavedVariables: IncognitoResurrectedDB
 ## OptionalDeps: Ace3
 

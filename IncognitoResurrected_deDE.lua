@@ -1,3 +1,8 @@
+------------------------
+---		Version      ---
+---		 1.1.1       ---
+------------------------
+
 local L = LibStub("AceLocale-3.0"):NewLocale("IncognitoResurrected", "enUS", true)
 
 if not L then return end
@@ -23,6 +28,12 @@ L["raid_desc"] = "Deinen Namen bei Schlachtzugschatnachrichten anzeigen (/raid).
 L["instance_chat"] = "Instanz"
 L["instance_chat_desc"] = "Deinen Namen bei Instanznachrichten anzeigen, z.B. im Schlachtzugsbrowser und im Schlachtfeld (/i)."
 
+L["world_chat"] = "World Chat"
+L["world_chat_desc"] = "Add name to world chat messages, e.g., General, Trade, LocalDefense and Services.\n-- This is an all or none option, you cannot select which World Channel to enable/disable"
+
+L["world_chat_info"] = "World Chat"
+L["world_chat_info_desc"] = "Add name to world chat messages, e.g., General, Trade, LocalDefense and Services.\n-- This is an all or none option, you cannot select which World Channel to enable/disable"
+
 L["config"] = "Konfiguration"
 L["config_desc"] = "Konfigurationsdialog öffnen."
 
@@ -35,4 +46,4 @@ L["channel_desc"] = "Deinen Namen in diesem benutzerdefinierten Kanal anzeigen."
 L["hideOnMatchingCharName"] = "Name nicht anzeigen, wenn er mit dem Charakternamen übereinstimmt"
 L["hideOnMatchingCharName_desc"] = "Wenn der oben angegebene Name gleich dem Namen deines aktuellen Charakters ist, fügt ihn IncognitoResurrected nicht hinzu, wenn diese Option ausgewählt ist."
 
-L["channel_info_text"] = "The 'Say' channel is not an acceptable option. This is a limitation within the Blizzard API"
+L["channel_info_text"] = "The World Channels are not an acceptable option.\n-- This is a limitation within the Blizzard API"
