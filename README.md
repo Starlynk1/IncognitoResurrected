@@ -19,8 +19,12 @@ slash options**
 - Guild - Add name to guild chat messages
 - Party - Add name to party chat messages
 - Raid - Add name to raid chat messages
+- World - Add name to world chat messages, e.g., General, Trade, LocalDefense and Services
+    (This is an all or none option, you cannot select which World Channel to enable/disable)
 - Channel - Add name to chat messages in a custom channel
+    (Use comma-separation to add multiple channels)
 - Debug - Enable debugging messages output. You probably don't want to enable this 
 
 **Features and Bugs**  
-If you have a feature request of find a bug please report them in the Issues section.
+If you have a feature request of find a bug please report them through the Github repository:
+https://github.com/Starlynk1/IncognitoResurrected/issues
