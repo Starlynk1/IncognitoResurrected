@@ -25,8 +25,8 @@ L["party_desc"] = "Add name to party chat messages (/p)."
 L["raid"] = "Raid"
 L["raid_desc"] = "Add name to raid chat messages (/raid)."
 
-L["raid"] = "LFR"
-L["raid_desc"] = "Add name to LFR chat messages (/raid or /i)."
+L["lfr"] = "LFR"
+L["lfr_desc"] = "Add name to LFR chat messages (/raid or /i)."
 
 L["instance_chat"] = "Instance"
 L["instance_chat_desc"] = "Add name to instance chat messages, e.g., LFR and battlegrounds (/i)."
