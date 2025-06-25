@@ -21,16 +21,18 @@ local L = LibStub("AceLocale-3.0"):GetLocale("IncognitoResurrected", true)
 ----------------------------
 
 function GetWoWVersion()
-    local _, _, _, _, _, _, expansionLevel = GetBuildInfo()
-
-    if expansionLevel >= 10 then
+    local version, build, date, tocversion, localizedVersionName, buildType,
+          expansionLevel = GetBuildInfo()
+    print("Debug: tocversion = " .. tocversion .. ", expansionLevel = " ..
+              (expansionLevel or "nil"))
+    if tocversion >= 110000 then
         return "retail"
-    elseif expansionLevel == 3 then
+    elseif tocversion >= 40000 and tocversion < 50000 then
         return "cataclysm"
-    elseif expansionLevel == 0 then
+    elseif tocversion >= 10000 and tocversion < 20000 then
         return "classic"
     else
-        return "unknown" -- Fallback for unexpected expansion levels
+        return "unknown"
     end
 end
 
