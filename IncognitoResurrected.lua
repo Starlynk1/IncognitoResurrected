@@ -22,7 +22,7 @@ local L = LibStub("AceLocale-3.0"):GetLocale("IncognitoResurrected", true)
 
 function GetWoWVersion()
     local _, _, _, _, _, _, expansionLevel = GetBuildInfo()
-    
+
     if expansionLevel >= 10 then
         return "retail"
     elseif expansionLevel == 3 then
@@ -168,7 +168,7 @@ local Defaults = {
         guild = true,
         party = false,
         raid = false,
-        lfr, = false,
+        lfr = false,
         instance_chat = false,
         world_chat = false,
         debug = false,
@@ -260,14 +260,14 @@ function IncognitoResurrected:SendChatMessage(msg, chatType, language, channel)
                     msg = "(" .. self.db.profile.name .. ") " .. msg
 
                     -- Check for Retail Version and in LFR
-                elseif GetWoWVersion == "retail" and            
-                (self.db.profile.lfr and IsInLFR == true) then
+                elseif GetWoWVersion == "retail" and
+                    (self.db.profile.lfr and IsInLFR == true) then
                     msg = "(" .. self.db.profile.name .. ") " .. msg
-                
+
                     -- Use Specified Chat Channel, commas are allowed	
                 elseif self.db.profile.channel and chatType == "CHANNEL" then
                     for i in string.gmatch(self.db.profile.channel, '([^,]+)') do
-						i = string.trim(i)
+                        i = string.trim(i)
                         local id, chname = GetChannelName(channel)
                         if strupper(i) == strupper(chname) then
                             msg = "(" .. self.db.profile.name .. ") " .. msg
