@@ -1,6 +1,6 @@
 ------------------------
 ---		Version      ---
----		 1.1.1       ---
+---		 1.2.3       ---
 ------------------------
 
 local L = LibStub("AceLocale-3.0"):NewLocale("IncognitoResurrected", "enUS", true)
@@ -24,6 +24,9 @@ L["party_desc"] = "Deinen Namen bei Gruppenchatnachrichten anzeigen (/p)."
 
 L["raid"] = "Schlachtzug"
 L["raid_desc"] = "Deinen Namen bei Schlachtzugschatnachrichten anzeigen (/raid)."
+
+L["raid"] = "LFR"
+L["raid_desc"] = "Add name to LFR chat messages (/raid or /i)."
 
 L["instance_chat"] = "Instanz"
 L["instance_chat_desc"] = "Deinen Namen bei Instanznachrichten anzeigen, z.B. im Schlachtzugsbrowser und im Schlachtfeld (/i)."
