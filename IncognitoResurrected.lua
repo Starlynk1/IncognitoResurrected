@@ -1,6 +1,6 @@
 ------------------------
 ---		Version      ---
----		 1.1.1       ---
+---		 1.2.3       ---
 ------------------------
 ------------------------
 ---		Module       ---
@@ -15,6 +15,26 @@ IncognitoResurrected = LibStub("AceAddon-3.0"):NewAddon("IncognitoResurrected",
 ----------------------------
 
 local L = LibStub("AceLocale-3.0"):GetLocale("IncognitoResurrected", true)
+
+----------------------------
+--     Get WoW Version    --
+----------------------------
+
+function GetWoWVersion()
+    local version, build, date, tocversion, localizedVersionName, buildType,
+          expansionLevel = GetBuildInfo()
+    print("Debug: tocversion = " .. tocversion .. ", expansionLevel = " ..
+              (expansionLevel or "nil"))
+    if tocversion >= 110000 then
+        return "retail"
+    elseif tocversion >= 40000 and tocversion < 50000 then
+        return "cataclysm"
+    elseif tocversion >= 10000 and tocversion < 20000 then
+        return "classic"
+    else
+        return "unknown"
+    end
+end
 
 local Options = {
     name = "Incognito Resurrected",
@@ -92,39 +112,48 @@ local Options = {
                     name = L["raid"],
                     desc = L["raid_desc"]
                 },
-                instance_chat = {
+                lfr = {
                     order = 5,
+                    type = "toggle",
+                    width = "full",
+                    name = L["lfr"],
+                    desc = L["lfr_desc"],
+                    hidden = function()
+                        return GetWoWVersion() ~= "retail"
+                    end
+                },
+                instance_chat = {
+                    order = 6,
                     type = "toggle",
                     width = "full",
                     name = L["instance_chat"],
                     desc = L["instance_chat_desc"]
                 },
                 world_chat = {
-                    order = 6,
+                    order = 7,
                     type = "toggle",
                     width = "full",
                     name = L["world_chat"],
                     desc = L["world_chat_desc"]
                 },
                 world_chat_info = {
-                    order = 7,
+                    order = 8,
                     type = "description",
                     name = "|cFFFFA500" .. L["world_chat_info_desc"]
                 },
                 channel = {
-                    order = 8,
+                    order = 9,
                     type = "input",
                     name = L["channel"],
                     desc = L["channel_desc"]
                 },
                 channelinfo = {
-                    order = 9,
+                    order = 10,
                     type = "description",
                     name = "|cFFFFA500" .. L["channel_info_text"]
-
                 },
                 debug = {
-                    order = 10,
+                    order = 11,
                     type = "toggle",
                     width = "full",
                     name = L["debug"],
@@ -141,6 +170,7 @@ local Defaults = {
         guild = true,
         party = false,
         raid = false,
+        lfr = false,
         instance_chat = false,
         world_chat = false,
         debug = false,
@@ -226,16 +256,20 @@ function IncognitoResurrected:SendChatMessage(msg, chatType, language, channel)
                     (self.db.profile.party and chatType == "PARTY") or
                     (self.db.profile.instance_chat and chatType ==
                         "INSTANCE_CHAT") then
-                    msg = "(" .. self.db.profile.name .. ") " .. msg
 
                     -- Use World Chat Channels	
                 elseif self.db.profile.world_chat and chatType == "CHANNEL" then
                     msg = "(" .. self.db.profile.name .. ") " .. msg
 
+                    -- Check for Retail Version and in LFR
+                elseif GetWoWVersion == "retail" and
+                    (self.db.profile.lfr and IsInLFR == true) then
+                    msg = "(" .. self.db.profile.name .. ") " .. msg
+
                     -- Use Specified Chat Channel, commas are allowed	
                 elseif self.db.profile.channel and chatType == "CHANNEL" then
                     for i in string.gmatch(self.db.profile.channel, '([^,]+)') do
-						i = string.trim(i)
+                        i = string.trim(i)
                         local id, chname = GetChannelName(channel)
                         if strupper(i) == strupper(chname) then
                             msg = "(" .. self.db.profile.name .. ") " .. msg
@@ -269,3 +303,9 @@ function InterfaceOptionsFrame_OpenToCategory(IncognitoResurrected)
         end
     end
 end
+
+function IsInLFR()
+    local _, instanceType, difficultyID = GetInstanceInfo()
+    return instanceType == "raid" and difficultyID == 17
+end
+
