@@ -19,6 +19,7 @@ slash options**
 - Guild - Add name to guild chat messages
 - Party - Add name to party chat messages
 - Raid - Add name to raid chat messages
+- LFR - Add name to LFR specific instance messsages
 - World - Add name to world chat messages, e.g., General, Trade, LocalDefense and Services
     (This is an all or none option, you cannot select which World Channel to enable/disable)
 - Channel - Add name to chat messages in a custom channel
