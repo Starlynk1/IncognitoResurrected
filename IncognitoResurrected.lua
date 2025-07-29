@@ -1,6 +1,6 @@
 ------------------------
 ---		Version      ---
----		 1.2.3       ---
+---		 1.2.4       ---
 ------------------------
 ------------------------
 ---		Module       ---
@@ -23,12 +23,12 @@ local L = LibStub("AceLocale-3.0"):GetLocale("IncognitoResurrected", true)
 function GetWoWVersion()
     local version, build, date, tocversion, localizedVersionName, buildType,
           expansionLevel = GetBuildInfo()
-    print("Debug: tocversion = " .. tocversion .. ", expansionLevel = " ..
-              (expansionLevel or "nil"))
+    self:Safe_Print("Debug: tocversion = " .. tocversion .. ", expansionLevel = " ..
+    (expansionLevel or "nil"))
     if tocversion >= 110000 then
         return "retail"
-    elseif tocversion >= 40000 and tocversion < 50000 then
-        return "cataclysm"
+    elseif tocversion >= 50000 and tocversion < 60000 then
+        return "mists"
     elseif tocversion >= 10000 and tocversion < 20000 then
         return "classic"
     else
@@ -261,11 +261,6 @@ function IncognitoResurrected:SendChatMessage(msg, chatType, language, channel)
                 elseif self.db.profile.world_chat and chatType == "CHANNEL" then
                     msg = "(" .. self.db.profile.name .. ") " .. msg
 
-                    -- Check for Retail Version and in LFR
-                elseif GetWoWVersion == "retail" and
-                    (self.db.profile.lfr and IsInLFR == true) then
-                    msg = "(" .. self.db.profile.name .. ") " .. msg
-
                     -- Use Specified Chat Channel, commas are allowed	
                 elseif self.db.profile.channel and chatType == "CHANNEL" then
                     for i in string.gmatch(self.db.profile.channel, '([^,]+)') do
@@ -275,6 +270,11 @@ function IncognitoResurrected:SendChatMessage(msg, chatType, language, channel)
                             msg = "(" .. self.db.profile.name .. ") " .. msg
                         end
                     end
+
+                    -- Check for Retail Version and in LFR
+                elseif GetWoWVersion == "retail" and
+                    (self.db.profile.lfr and IsInLFR == true) then
+                    msg = "(" .. self.db.profile.name .. ") " .. msg
                 end
             end
         end
