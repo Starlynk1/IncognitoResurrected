@@ -34,7 +34,7 @@ local L = LibStub("AceLocale-3.0"):GetLocale("IncognitoResurrected", true)
 --   else
 --        return "unknown"
 --    end
---end
+-- end
 
 local Options = {
     name = "Incognito Resurrected",
@@ -117,10 +117,10 @@ local Options = {
                     type = "toggle",
                     width = "full",
                     name = L["lfr"],
-                    desc = L["lfr_desc"],
+                    desc = L["lfr_desc"]
                     -- hidden = function()
                     --    return GetWoWVersion() ~= "retail"
-                    --end
+                    -- end
                 },
                 instance_chat = {
                     order = 6,
@@ -273,10 +273,10 @@ function IncognitoResurrected:SendChatMessage(msg, chatType, language, channel)
                     end
 
                     -- Check for Retail Version and in LFR
---                elseif GetWoWVersion == "retail" and
---                    (self.db.profile.lfr and IsInLFR == true) then
---                    msg = "(" .. self.db.profile.name .. ") " .. msg
---                end
+                    --                elseif GetWoWVersion == "retail" and
+                    --                    (self.db.profile.lfr and IsInLFR == true) then
+                    --                    msg = "(" .. self.db.profile.name .. ") " .. msg
+                end
             end
         end
     end
@@ -309,4 +309,3 @@ function IsInLFR()
     local _, instanceType, difficultyID = GetInstanceInfo()
     return instanceType == "raid" and difficultyID == 17
 end
-
