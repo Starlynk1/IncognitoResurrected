@@ -20,21 +20,21 @@ local L = LibStub("AceLocale-3.0"):GetLocale("IncognitoResurrected", true)
 --     Get WoW Version    --
 ----------------------------
 
-function GetWoWVersion()
-    local version, build, date, tocversion, localizedVersionName, buildType,
-          expansionLevel = GetBuildInfo()
-    self:Safe_Print("Debug: tocversion = " .. tocversion .. ", expansionLevel = " ..
-    (expansionLevel or "nil"))
-    if tocversion >= 110000 then
-        return "retail"
-    elseif tocversion >= 50000 and tocversion < 60000 then
-        return "mists"
-    elseif tocversion >= 10000 and tocversion < 20000 then
-        return "classic"
-    else
-        return "unknown"
-    end
-end
+-- function GetWoWVersion()
+--    local version, build, date, tocversion, localizedVersionName, buildType,
+--          expansionLevel = GetBuildInfo()
+--    --    self:Safe_Print("Debug: tocversion = " .. tocversion ..
+--    --                        ", expansionLevel = " .. (expansionLevel or "nil"))
+--    if tocversion >= 110000 then
+--        return "retail"
+--    elseif tocversion >= 50000 and tocversion < 60000 then
+--        return "mists"
+--    elseif tocversion >= 10000 and tocversion < 20000 then
+--        return "classic"
+--   else
+--        return "unknown"
+--    end
+--end
 
 local Options = {
     name = "Incognito Resurrected",
@@ -118,9 +118,9 @@ local Options = {
                     width = "full",
                     name = L["lfr"],
                     desc = L["lfr_desc"],
-                    hidden = function()
-                        return GetWoWVersion() ~= "retail"
-                    end
+                    -- hidden = function()
+                    --    return GetWoWVersion() ~= "retail"
+                    --end
                 },
                 instance_chat = {
                     order = 6,
@@ -256,6 +256,7 @@ function IncognitoResurrected:SendChatMessage(msg, chatType, language, channel)
                     (self.db.profile.party and chatType == "PARTY") or
                     (self.db.profile.instance_chat and chatType ==
                         "INSTANCE_CHAT") then
+                    msg = "(" .. self.db.profile.name .. ") " .. msg
 
                     -- Use World Chat Channels	
                 elseif self.db.profile.world_chat and chatType == "CHANNEL" then
@@ -272,10 +273,10 @@ function IncognitoResurrected:SendChatMessage(msg, chatType, language, channel)
                     end
 
                     -- Check for Retail Version and in LFR
-                elseif GetWoWVersion == "retail" and
-                    (self.db.profile.lfr and IsInLFR == true) then
-                    msg = "(" .. self.db.profile.name .. ") " .. msg
-                end
+--                elseif GetWoWVersion == "retail" and
+--                    (self.db.profile.lfr and IsInLFR == true) then
+--                    msg = "(" .. self.db.profile.name .. ") " .. msg
+--                end
             end
         end
     end
