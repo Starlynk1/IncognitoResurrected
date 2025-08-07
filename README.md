@@ -26,6 +26,9 @@ slash options**
     (Use comma-separation to add multiple channels)
 - Debug - Enable debugging messages output. You probably don't want to enable this 
 
-**Features and Bugs**  
+**Known Issues**
+LFR option was disabled temporarily. Will be working on adding that option again soon.
+
+**Features and Bugs**
 If you have a feature request of find a bug please report them through the Github repository:
 https://github.com/Starlynk1/IncognitoResurrected/issues
