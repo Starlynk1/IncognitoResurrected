@@ -47,3 +47,11 @@ L["hideOnMatchingCharName"] = "Скрыть имя, если оно совпад
 L["hideOnMatchingCharName_desc"] = "Если указанное выше имя совпадает с именем вашего текущего персонажа, IncognitoResurrected не будет добавлять его снова, если эта опция включена."
 
 L["channel_info_text"] = "Мировые каналы (Сказать, Общий, Торговля, Услуги) не являются допустимыми опциями.\nЭто ограничение API Blizzard."
+
+-- New localization for ignoreLeadingSymbols
+L["ignoreLeadingSymbols"] = "Игнорировать начальные символы"
+L["ignoreLeadingSymbols_desc"] = "Если сообщение начинается с любого из этих символов (после пробелов), не добавлять префикс имени."
+
+-- New localization for bracketStyle selector
+L["bracketStyle"] = "Тип скобок"
+L["bracketStyle_desc"] = "Выберите, какими скобками окружать ваше имя в сообщениях чата."
