@@ -60,3 +60,7 @@ L["hideOnMatchingCharName_desc"] =
 
 L["channel_info_text"] =
     "The World Channels are not an acceptable option.\n-- This is a limitation within the Blizzard API"
+
+-- New localization for ignoreLeadingSymbols
+L["ignoreLeadingSymbols"] = "Führende Zeichen ignorieren"
+L["ignoreLeadingSymbols_desc"] = "Wenn eine Nachricht mit einem dieser Zeichen (nach Leerzeichen) beginnt, kein Namenspräfix hinzufügen."
