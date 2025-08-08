@@ -1,6 +1,6 @@
 ------------------------
 ---		Version      ---
----		 1.2.4       ---
+---		 1.2.6       ---
 ------------------------
 local L = LibStub("AceLocale-3.0"):NewLocale("IncognitoResurrected", "enUS",
                                              true)
@@ -60,3 +60,11 @@ L["hideOnMatchingCharName_desc"] =
 
 L["channel_info_text"] =
     "The World Channels are not an acceptable option.\n-- This is a limitation within the Blizzard API"
+
+-- New localization for ignoreLeadingSymbols
+L["ignoreLeadingSymbols"] = "Führende Zeichen ignorieren"
+L["ignoreLeadingSymbols_desc"] = "Wenn eine Nachricht mit einem dieser Zeichen (nach Leerzeichen) beginnt, kein Namenspräfix hinzufügen."
+
+-- New localization for bracketStyle selector
+L["bracketStyle"] = "Klammerstil"
+L["bracketStyle_desc"] = "Wählen Sie, mit welchen Klammern Ihr Name in Chatnachrichten umschlossen wird."

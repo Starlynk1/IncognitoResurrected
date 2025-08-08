@@ -1,7 +1,8 @@
 ------------------------
 ---		Version      ---
----		 1.2.4       ---
+---		 1.2.6       ---
 ------------------------
+
 ------------------------
 ---		Module       ---
 ------------------------
@@ -20,21 +21,17 @@ local L = LibStub("AceLocale-3.0"):GetLocale("IncognitoResurrected", true)
 --     Get WoW Version    --
 ----------------------------
 
--- function GetWoWVersion()
---    local version, build, date, tocversion, localizedVersionName, buildType,
---          expansionLevel = GetBuildInfo()
---    --    self:Safe_Print("Debug: tocversion = " .. tocversion ..
---    --                        ", expansionLevel = " .. (expansionLevel or "nil"))
---    if tocversion >= 110000 then
---        return "retail"
---    elseif tocversion >= 50000 and tocversion < 60000 then
---        return "mists"
---    elseif tocversion >= 10000 and tocversion < 20000 then
---        return "classic"
---   else
---        return "unknown"
---    end
--- end
+function GetWoWVersion()
+    if WOW_PROJECT_ID == WOW_PROJECT_MAINLINE then
+        return "retail"
+    elseif WOW_PROJECT_ID == WOW_PROJECT_MISTS_CLASSIC then
+        return "mists"
+    elseif WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+        return "classic"
+    else
+        return "unknown"
+    end
+end
 
 local Options = {
     name = "Incognito Resurrected",
@@ -71,6 +68,22 @@ local Options = {
                     name = L["hideOnMatchingCharName"],
                     desc = L["hideOnMatchingCharName_desc"],
                     width = "full"
+                },
+                -- New option: Ignore leading symbols
+                ignoreLeadingSymbols = {
+                    order = 4,
+                    type = "input",
+                    name = L["ignoreLeadingSymbols"],
+                    desc = L["ignoreLeadingSymbols_desc"],
+                    width = "full"
+                },
+                -- New option: Bracket style selector
+                bracketStyle = {
+                    order = 5,
+                    type = "select",
+                    name = L["bracketStyle"],
+                    desc = L["bracketStyle_desc"],
+                    values = { paren = "(round)", square = "[square]", curly = "{curly}", angle = "<angle>" }
                 }
             }
         },
@@ -117,10 +130,10 @@ local Options = {
                     type = "toggle",
                     width = "full",
                     name = L["lfr"],
-                    desc = L["lfr_desc"]
-                    -- hidden = function()
-                    --    return GetWoWVersion() ~= "retail"
-                    -- end
+                    desc = L["lfr_desc"],
+                    hidden = function()
+                        return GetWoWVersion() ~= "retail"
+                    end
                 },
                 instance_chat = {
                     order = 6,
@@ -175,7 +188,11 @@ local Defaults = {
         world_chat = false,
         debug = false,
         channel = nil,
-        hideOnMatchingCharName = true
+        hideOnMatchingCharName = true,
+        -- Default ignored leading symbols
+        ignoreLeadingSymbols = "/!#@?.",
+        -- Default bracket style
+        bracketStyle = "paren"
     }
 }
 
@@ -210,6 +227,7 @@ local character_name
 ----------------------
 
 function IncognitoResurrected:OnInitialize()
+
     -- Load our database.
     self.db = LibStub("AceDB-3.0"):New("IncognitoResurrectedDB", Defaults, true)
 
@@ -232,7 +250,12 @@ function IncognitoResurrected:OnInitialize()
     }
 
     -- Hook SendChatMessage function
-    self:RawHook("SendChatMessage", true)
+    local version = GetWoWVersion()
+    if version == "mists" or version == "classic" then
+        self:RawHook("SendChatMessage", true)
+    else
+        self:RawHook(C_ChatInfo, "SendChatMessage", true)
+    end
 
     -- get current character name
     character_name, _ = UnitName("player")
@@ -244,7 +267,22 @@ end
 ---      Event Handlers      ---
 --------------------------------
 
-function IncognitoResurrected:SendChatMessage(msg, chatType, language, channel)
+function IncognitoResurrected:SendChatMessage(msg, chatType, language, target)
+    -- Early out: ignore messages starting with configured symbols (after spaces)
+    if self.db and self.db.profile and self.db.profile.enable and type(msg) == "string" then
+        local symbols = self.db.profile.ignoreLeadingSymbols or "/!#"
+        local firstChar = msg:match("^%s*(.)")
+        if firstChar and symbols:find(firstChar, 1, true) then
+            local version = GetWoWVersion()
+            if version == "mists" or version == "classic" then
+                self.hooks.SendChatMessage(msg, chatType, language, target)
+            else
+                self.hooks[C_ChatInfo].SendChatMessage(msg, chatType, language, target)
+            end
+            return
+        end
+    end
+
     if self.db.profile.enable then
         if self.db.profile.name and self.db.profile.name ~= "" then
             if (not self.db.profile.hideOnMatchingCharName) or
@@ -256,33 +294,38 @@ function IncognitoResurrected:SendChatMessage(msg, chatType, language, channel)
                     (self.db.profile.party and chatType == "PARTY") or
                     (self.db.profile.instance_chat and chatType ==
                         "INSTANCE_CHAT") then
-                    msg = "(" .. self.db.profile.name .. ") " .. msg
+                    msg = self:GetNamePrefix() .. msg
 
-                    -- Use World Chat Channels	
+                    -- Use World Chat Channels 
                 elseif self.db.profile.world_chat and chatType == "CHANNEL" then
-                    msg = "(" .. self.db.profile.name .. ") " .. msg
+                    msg = self:GetNamePrefix() .. msg
 
-                    -- Use Specified Chat Channel, commas are allowed	
+                    -- Use Specified Chat Channel, commas are allowed 
                 elseif self.db.profile.channel and chatType == "CHANNEL" then
                     for i in string.gmatch(self.db.profile.channel, '([^,]+)') do
-                        i = string.trim(i)
-                        local id, chname = GetChannelName(channel)
-                        if strupper(i) == strupper(chname) then
-                            msg = "(" .. self.db.profile.name .. ") " .. msg
+                        local nameToMatch = strtrim(i)
+                        local id, chname = GetChannelName(target)
+                        if chname and strupper(nameToMatch) == strupper(chname) then
+                            msg = self:GetNamePrefix() .. msg
                         end
                     end
 
                     -- Check for Retail Version and in LFR
-                    --                elseif GetWoWVersion == "retail" and
-                    --                    (self.db.profile.lfr and IsInLFR == true) then
-                    --                    msg = "(" .. self.db.profile.name .. ") " .. msg
+                elseif GetWoWVersion() == "retail" and
+                    (self.db.profile.lfr and IsInLFR()) then
+                    msg = self:GetNamePrefix() .. msg
                 end
             end
         end
     end
 
     -- Call original function
-    self.hooks.SendChatMessage(msg, chatType, language, channel)
+    local version = GetWoWVersion()
+    if version == "mists" or version == "classic" then
+        self.hooks.SendChatMessage(msg, chatType, language, target)
+    else
+        self.hooks[C_ChatInfo].SendChatMessage(msg, chatType, language, target)
+    end
 end
 
 ---------------------------
@@ -309,3 +352,11 @@ function IsInLFR()
     local _, instanceType, difficultyID = GetInstanceInfo()
     return instanceType == "raid" and difficultyID == 17
 end
+
+function IncognitoResurrected:GetNamePrefix()
+    local style = (self.db and self.db.profile and self.db.profile.bracketStyle) or "paren"
+    local pairs = { paren = {"(", ")"}, square = {"[", "]"}, curly = {"{", "}"}, angle = {"<", ">"} }
+    local pair = pairs[style] or pairs.paren
+    return pair[1] .. (self.db.profile.name or "") .. pair[2] .. " "
+end
+
