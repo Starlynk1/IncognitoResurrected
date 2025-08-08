@@ -108,16 +108,6 @@ local Options = {
                     name = L["raid"],
                     desc = L["raid_desc"]
                 },
-                lfr = {
-                    order = 5,
-                    type = "toggle",
-                    width = "full",
-                    name = L["lfr"],
-                    desc = L["lfr_desc"],
-                    hidden = function()
-                        return GetWoWVersion() ~= "retail"
-                    end
-                },
                 instance_chat = {
                     order = 6,
                     type = "toggle",
@@ -229,11 +219,7 @@ function IncognitoResurrected:OnInitialize()
     }
 
     -- Hook SendChatMessage function
-    if GetWoWVersion == "mists" or "classic" then
-        self:RawHook("SendChatMessage", true)
-    else
-        self:RawHook(C_ChatInfo, "SendChatMessage", true)
-    end
+    self:RawHook("SendChatMessage", true)
 
     -- get current character name
     character_name, _ = UnitName("player")
@@ -272,22 +258,13 @@ function IncognitoResurrected:SendChatMessage(msg, chatType, language, target)
                             msg = "(" .. self.db.profile.name .. ") " .. msg
                         end
                     end
-
-                    -- Check for Retail Version and in LFR
-                elseif GetWoWVersion == "retail" and
-                    (self.db.profile.lfr and IsInLFR == true) then
-                    msg = "(" .. self.db.profile.name .. ") " .. msg
                 end
             end
         end
     end
 
     -- Call original function
-    if GetWoWVersion == "mists" or "classic" then
-        self.hooks.SendChatMessage(msg, chatType, language, target)
-    else
-        self.hooks[C_ChatInfo].SendChatMessage(msg, chatType, language, target)
-    end
+    self.hooks.SendChatMessage(msg, chatType, language, target)
 end
 
 ---------------------------
@@ -308,9 +285,4 @@ function InterfaceOptionsFrame_OpenToCategory(IncognitoResurrected)
             return Settings.OpenToCategory(category);
         end
     end
-end
-
-function IsInLFR()
-    local _, instanceType, difficultyID = GetInstanceInfo()
-    return instanceType == "raid" and difficultyID == 17
 end
