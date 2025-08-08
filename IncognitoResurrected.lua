@@ -2,7 +2,6 @@
 ---		Version      ---
 ---		 1.2.6       ---
 ------------------------
-
 ------------------------
 ---		Module       ---
 ------------------------
@@ -75,7 +74,13 @@ local Options = {
                     type = "input",
                     name = L["ignoreLeadingSymbols"],
                     desc = L["ignoreLeadingSymbols_desc"],
-                    width = "full"
+                    width = "normal"
+                },
+                spacer = {
+                    order = 5,
+                    type = "description",
+                    name = "",
+                    width = "half"
                 },
                 -- New option: Bracket style selector
                 bracketStyle = {
@@ -198,7 +203,7 @@ local Defaults = {
         channel = nil,
         hideOnMatchingCharName = true,
         -- Default ignored leading symbols
-        ignoreLeadingSymbols = "/!#@?.",
+        ignoreLeadingSymbols = "/!#@?",
         -- Default bracket style
         bracketStyle = "paren",
         -- Class-color the bracketed prefix in chat frames
@@ -260,7 +265,8 @@ function IncognitoResurrected:OnInitialize()
     }
 
     -- Hook SendChatMessage function using feature detection
-    self._useCChatInfo = type(C_ChatInfo) == "table" and type(C_ChatInfo.SendChatMessage) == "function"
+    self._useCChatInfo = type(C_ChatInfo) == "table" and
+                             type(C_ChatInfo.SendChatMessage) == "function"
     if self._useCChatInfo then
         self:RawHook(C_ChatInfo, "SendChatMessage", true)
     else
@@ -279,12 +285,14 @@ end
 
 function IncognitoResurrected:SendChatMessage(msg, chatType, language, target)
     -- Early out: ignore messages starting with configured symbols (after spaces)
-    if self.db and self.db.profile and self.db.profile.enable and type(msg) == "string" then
+    if self.db and self.db.profile and self.db.profile.enable and type(msg) ==
+        "string" then
         local symbols = self.db.profile.ignoreLeadingSymbols or "/!#"
         local firstChar = msg:match("^%s*(.)")
         if firstChar and symbols:find(firstChar, 1, true) then
             if self._useCChatInfo then
-                self.hooks[C_ChatInfo].SendChatMessage(msg, chatType, language, target)
+                self.hooks[C_ChatInfo].SendChatMessage(msg, chatType, language,
+                                                       target)
             else
                 self.hooks.SendChatMessage(msg, chatType, language, target)
             end
@@ -369,8 +377,15 @@ function IncognitoResurrected:IsLFRAvailable()
 end
 
 function IncognitoResurrected:GetNamePrefix()
-    local style = (self.db and self.db.profile and self.db.profile.bracketStyle) or "paren"
-    local pairs = { paren = {"(", ")"}, square = {"[", "]"}, curly = {"{", "}"}, angle = {"<", ">"} }
+    local style =
+        (self.db and self.db.profile and self.db.profile.bracketStyle) or
+            "paren"
+    local pairs = {
+        paren = {"(", ")"},
+        square = {"[", "]"},
+        curly = {"{", "}"},
+        angle = {"<", ">"}
+    }
     local pair = pairs[style] or pairs.paren
     return pair[1] .. (self.db.profile.name or "") .. pair[2] .. ": "
 end
