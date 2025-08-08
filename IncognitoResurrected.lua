@@ -68,6 +68,22 @@ local Options = {
                     name = L["hideOnMatchingCharName"],
                     desc = L["hideOnMatchingCharName_desc"],
                     width = "full"
+                },
+                -- New option: Ignore leading symbols
+                ignoreLeadingSymbols = {
+                    order = 4,
+                    type = "input",
+                    name = L["ignoreLeadingSymbols"],
+                    desc = L["ignoreLeadingSymbols_desc"],
+                    width = "full"
+                },
+                -- New option: Bracket style selector
+                bracketStyle = {
+                    order = 5,
+                    type = "select",
+                    name = L["bracketStyle"],
+                    desc = L["bracketStyle_desc"],
+                    values = { paren = "(round)", square = "[square]", curly = "{curly}", angle = "<angle>" }
                 }
             }
         },
@@ -172,7 +188,11 @@ local Defaults = {
         world_chat = false,
         debug = false,
         channel = nil,
-        hideOnMatchingCharName = true
+        hideOnMatchingCharName = true,
+        -- Default ignored leading symbols
+        ignoreLeadingSymbols = "/!#@?.",
+        -- Default bracket style
+        bracketStyle = "paren"
     }
 }
 
@@ -230,7 +250,8 @@ function IncognitoResurrected:OnInitialize()
     }
 
     -- Hook SendChatMessage function
-    if GetWoWVersion == "mists" or "classic" then
+    local version = GetWoWVersion()
+    if version == "mists" or version == "classic" then
         self:RawHook("SendChatMessage", true)
     else
         self:RawHook(C_ChatInfo, "SendChatMessage", true)
@@ -247,6 +268,21 @@ end
 --------------------------------
 
 function IncognitoResurrected:SendChatMessage(msg, chatType, language, target)
+    -- Early out: ignore messages starting with configured symbols (after spaces)
+    if self.db and self.db.profile and self.db.profile.enable and type(msg) == "string" then
+        local symbols = self.db.profile.ignoreLeadingSymbols or "/!#"
+        local firstChar = msg:match("^%s*(.)")
+        if firstChar and symbols:find(firstChar, 1, true) then
+            local version = GetWoWVersion()
+            if version == "mists" or version == "classic" then
+                self.hooks.SendChatMessage(msg, chatType, language, target)
+            else
+                self.hooks[C_ChatInfo].SendChatMessage(msg, chatType, language, target)
+            end
+            return
+        end
+    end
+
     if self.db.profile.enable then
         if self.db.profile.name and self.db.profile.name ~= "" then
             if (not self.db.profile.hideOnMatchingCharName) or
@@ -258,33 +294,34 @@ function IncognitoResurrected:SendChatMessage(msg, chatType, language, target)
                     (self.db.profile.party and chatType == "PARTY") or
                     (self.db.profile.instance_chat and chatType ==
                         "INSTANCE_CHAT") then
-                    msg = "(" .. self.db.profile.name .. ") " .. msg
+                    msg = self:GetNamePrefix() .. msg
 
-                    -- Use World Chat Channels	
+                    -- Use World Chat Channels 
                 elseif self.db.profile.world_chat and chatType == "CHANNEL" then
-                    msg = "(" .. self.db.profile.name .. ") " .. msg
+                    msg = self:GetNamePrefix() .. msg
 
-                    -- Use Specified Chat Channel, commas are allowed	
+                    -- Use Specified Chat Channel, commas are allowed 
                 elseif self.db.profile.channel and chatType == "CHANNEL" then
                     for i in string.gmatch(self.db.profile.channel, '([^,]+)') do
-                        i = string.trim(i)
-                        local id, chname = GetChannelName(channel)
-                        if strupper(i) == strupper(chname) then
-                            msg = "(" .. self.db.profile.name .. ") " .. msg
+                        local nameToMatch = strtrim(i)
+                        local id, chname = GetChannelName(target)
+                        if chname and strupper(nameToMatch) == strupper(chname) then
+                            msg = self:GetNamePrefix() .. msg
                         end
                     end
 
                     -- Check for Retail Version and in LFR
-                elseif GetWoWVersion == "retail" and
-                    (self.db.profile.lfr and IsInLFR == true) then
-                    msg = "(" .. self.db.profile.name .. ") " .. msg
+                elseif GetWoWVersion() == "retail" and
+                    (self.db.profile.lfr and IsInLFR()) then
+                    msg = self:GetNamePrefix() .. msg
                 end
             end
         end
     end
 
     -- Call original function
-    if GetWoWVersion == "mists" or "classic" then
+    local version = GetWoWVersion()
+    if version == "mists" or version == "classic" then
         self.hooks.SendChatMessage(msg, chatType, language, target)
     else
         self.hooks[C_ChatInfo].SendChatMessage(msg, chatType, language, target)
@@ -314,5 +351,12 @@ end
 function IsInLFR()
     local _, instanceType, difficultyID = GetInstanceInfo()
     return instanceType == "raid" and difficultyID == 17
+end
+
+function IncognitoResurrected:GetNamePrefix()
+    local style = (self.db and self.db.profile and self.db.profile.bracketStyle) or "paren"
+    local pairs = { paren = {"(", ")"}, square = {"[", "]"}, curly = {"{", "}"}, angle = {"<", ">"} }
+    local pair = pairs[style] or pairs.paren
+    return pair[1] .. (self.db.profile.name or "") .. pair[2] .. " "
 end
 
