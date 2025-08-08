@@ -20,21 +20,17 @@ local L = LibStub("AceLocale-3.0"):GetLocale("IncognitoResurrected", true)
 --     Get WoW Version    --
 ----------------------------
 
--- function GetWoWVersion()
---    local version, build, date, tocversion, localizedVersionName, buildType,
---          expansionLevel = GetBuildInfo()
---    --    self:Safe_Print("Debug: tocversion = " .. tocversion ..
---    --                        ", expansionLevel = " .. (expansionLevel or "nil"))
---    if tocversion >= 110000 then
---        return "retail"
---    elseif tocversion >= 50000 and tocversion < 60000 then
---        return "mists"
---    elseif tocversion >= 10000 and tocversion < 20000 then
---        return "classic"
---   else
---        return "unknown"
---    end
--- end
+function GetWoWVersion()
+    if WOW_PROJECT_ID == WOW_PROJECT_MAINLINE then
+        return "retail"
+    elseif WOW_PROJECT_ID == WOW_PROJECT_MISTS_CLASSIC then
+        return "mists"
+    elseif WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+        return "classic"
+    else
+        return "unknown"
+    end
+end
 
 local Options = {
     name = "Incognito Resurrected",
@@ -117,10 +113,10 @@ local Options = {
                     type = "toggle",
                     width = "full",
                     name = L["lfr"],
-                    desc = L["lfr_desc"]
-                    -- hidden = function()
-                    --    return GetWoWVersion() ~= "retail"
-                    -- end
+                    desc = L["lfr_desc"],
+                    hidden = function()
+                        return GetWoWVersion() ~= "retail"
+                    end
                 },
                 instance_chat = {
                     order = 6,
@@ -210,6 +206,7 @@ local character_name
 ----------------------
 
 function IncognitoResurrected:OnInitialize()
+
     -- Load our database.
     self.db = LibStub("AceDB-3.0"):New("IncognitoResurrectedDB", Defaults, true)
 
@@ -232,7 +229,7 @@ function IncognitoResurrected:OnInitialize()
     }
 
     -- Hook SendChatMessage function
-    self:RawHook("SendChatMessage", true)
+    self:RawHook(C_ChatInfo, "SendChatMessage", true)
 
     -- get current character name
     character_name, _ = UnitName("player")
@@ -244,7 +241,7 @@ end
 ---      Event Handlers      ---
 --------------------------------
 
-function IncognitoResurrected:SendChatMessage(msg, chatType, language, channel)
+function IncognitoResurrected:SendChatMessage(msg, chatType, language, target)
     if self.db.profile.enable then
         if self.db.profile.name and self.db.profile.name ~= "" then
             if (not self.db.profile.hideOnMatchingCharName) or
@@ -273,16 +270,16 @@ function IncognitoResurrected:SendChatMessage(msg, chatType, language, channel)
                     end
 
                     -- Check for Retail Version and in LFR
-                    --                elseif GetWoWVersion == "retail" and
-                    --                    (self.db.profile.lfr and IsInLFR == true) then
-                    --                    msg = "(" .. self.db.profile.name .. ") " .. msg
+                elseif GetWoWVersion == "retail" and
+                    (self.db.profile.lfr and IsInLFR == true) then
+                    msg = "(" .. self.db.profile.name .. ") " .. msg
                 end
             end
         end
     end
 
     -- Call original function
-    self.hooks.SendChatMessage(msg, chatType, language, channel)
+    self.hooks[C_ChatInfo].SendChatMessage(msg, chatType, language, target)
 end
 
 ---------------------------
