@@ -206,6 +206,7 @@ local character_name
 ----------------------
 
 function IncognitoResurrected:OnInitialize()
+
     -- Load our database.
     self.db = LibStub("AceDB-3.0"):New("IncognitoResurrectedDB", Defaults, true)
 
@@ -228,7 +229,7 @@ function IncognitoResurrected:OnInitialize()
     }
 
     -- Hook SendChatMessage function
-    self:RawHook("SendChatMessage", true)
+    self:RawHook(C_ChatInfo, "SendChatMessage", true)
 
     -- get current character name
     character_name, _ = UnitName("player")
@@ -240,7 +241,7 @@ end
 ---      Event Handlers      ---
 --------------------------------
 
-function IncognitoResurrected:SendChatMessage(msg, chatType, language, channel)
+function IncognitoResurrected:SendChatMessage(msg, chatType, language, target)
     if self.db.profile.enable then
         if self.db.profile.name and self.db.profile.name ~= "" then
             if (not self.db.profile.hideOnMatchingCharName) or
@@ -278,7 +279,7 @@ function IncognitoResurrected:SendChatMessage(msg, chatType, language, channel)
     end
 
     -- Call original function
-    self.hooks.SendChatMessage(msg, chatType, language, channel)
+    self.hooks[C_ChatInfo].SendChatMessage(msg, chatType, language, target)
 end
 
 ---------------------------
