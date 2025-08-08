@@ -132,7 +132,7 @@ local Options = {
                     name = L["lfr"],
                     desc = L["lfr_desc"],
                     hidden = function()
-                        return GetWoWVersion() ~= "retail"
+                        return not IncognitoResurrected:IsLFRAvailable()
                     end
                 },
                 instance_chat = {
@@ -249,12 +249,12 @@ function IncognitoResurrected:OnInitialize()
                                            "Profiles", "IncognitoResurrected")
     }
 
-    -- Hook SendChatMessage function
-    local version = GetWoWVersion()
-    if version == "mists" or version == "classic" then
-        self:RawHook("SendChatMessage", true)
-    else
+    -- Hook SendChatMessage function using feature detection
+    self._useCChatInfo = type(C_ChatInfo) == "table" and type(C_ChatInfo.SendChatMessage) == "function"
+    if self._useCChatInfo then
         self:RawHook(C_ChatInfo, "SendChatMessage", true)
+    else
+        self:RawHook("SendChatMessage", true)
     end
 
     -- get current character name
@@ -273,11 +273,10 @@ function IncognitoResurrected:SendChatMessage(msg, chatType, language, target)
         local symbols = self.db.profile.ignoreLeadingSymbols or "/!#"
         local firstChar = msg:match("^%s*(.)")
         if firstChar and symbols:find(firstChar, 1, true) then
-            local version = GetWoWVersion()
-            if version == "mists" or version == "classic" then
-                self.hooks.SendChatMessage(msg, chatType, language, target)
-            else
+            if self._useCChatInfo then
                 self.hooks[C_ChatInfo].SendChatMessage(msg, chatType, language, target)
+            else
+                self.hooks.SendChatMessage(msg, chatType, language, target)
             end
             return
         end
@@ -310,9 +309,8 @@ function IncognitoResurrected:SendChatMessage(msg, chatType, language, target)
                         end
                     end
 
-                    -- Check for Retail Version and in LFR
-                elseif GetWoWVersion() == "retail" and
-                    (self.db.profile.lfr and IsInLFR()) then
+                    -- LFR
+                elseif self.db.profile.lfr and IsInLFR() then
                     msg = self:GetNamePrefix() .. msg
                 end
             end
@@ -320,11 +318,10 @@ function IncognitoResurrected:SendChatMessage(msg, chatType, language, target)
     end
 
     -- Call original function
-    local version = GetWoWVersion()
-    if version == "mists" or version == "classic" then
-        self.hooks.SendChatMessage(msg, chatType, language, target)
-    else
+    if self._useCChatInfo then
         self.hooks[C_ChatInfo].SendChatMessage(msg, chatType, language, target)
+    else
+        self.hooks.SendChatMessage(msg, chatType, language, target)
     end
 end
 
@@ -351,6 +348,14 @@ end
 function IsInLFR()
     local _, instanceType, difficultyID = GetInstanceInfo()
     return instanceType == "raid" and difficultyID == 17
+end
+
+function IncognitoResurrected:IsLFRAvailable()
+    if type(GetDifficultyInfo) == "function" then
+        local name = GetDifficultyInfo(17)
+        return name ~= nil
+    end
+    return false
 end
 
 function IncognitoResurrected:GetNamePrefix()
