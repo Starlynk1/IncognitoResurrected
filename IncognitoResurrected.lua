@@ -229,7 +229,11 @@ function IncognitoResurrected:OnInitialize()
     }
 
     -- Hook SendChatMessage function
-    self:RawHook(C_ChatInfo, "SendChatMessage", true)
+    if GetWoWVersion == "mists" or "classic" then
+        self:RawHook("SendChatMessage", true)
+    else
+        self:RawHook(C_ChatInfo, "SendChatMessage", true)
+    end
 
     -- get current character name
     character_name, _ = UnitName("player")
@@ -279,7 +283,11 @@ function IncognitoResurrected:SendChatMessage(msg, chatType, language, target)
     end
 
     -- Call original function
-    self.hooks[C_ChatInfo].SendChatMessage(msg, chatType, language, target)
+    if GetWoWVersion == "mists" or "classic" then
+        self.hooks.SendChatMessage(msg, chatType, language, target)
+    else
+        self.hooks[C_ChatInfo].SendChatMessage(msg, chatType, language, target)
+    end
 end
 
 ---------------------------
