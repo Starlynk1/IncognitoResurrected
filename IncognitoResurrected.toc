@@ -20,3 +20,4 @@ IncognitoResurrected_enUS.lua
 IncognitoResurrected_deDE.lua
 IncognitoResurrected_ruRU.lua
 IncognitoResurrected.lua
+

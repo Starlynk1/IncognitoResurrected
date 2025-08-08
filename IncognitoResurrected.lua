@@ -2,6 +2,7 @@
 ---		Version      ---
 ---		 1.2.6       ---
 ------------------------
+
 ------------------------
 ---		Module       ---
 ------------------------
@@ -314,3 +315,4 @@ function IsInLFR()
     local _, instanceType, difficultyID = GetInstanceInfo()
     return instanceType == "raid" and difficultyID == 17
 end
+
