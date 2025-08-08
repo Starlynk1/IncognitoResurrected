@@ -17,21 +17,8 @@ IncognitoResurrected = LibStub("AceAddon-3.0"):NewAddon("IncognitoResurrected",
 local L = LibStub("AceLocale-3.0"):GetLocale("IncognitoResurrected", true)
 
 ----------------------------
---     Get WoW Version    --
+--     Main Section       --
 ----------------------------
-
-function GetWoWVersion()
-    if WOW_PROJECT_ID == WOW_PROJECT_MAINLINE then
-        return "retail"
-    elseif WOW_PROJECT_ID == WOW_PROJECT_MISTS_CLASSIC then
-        return "mists"
-    elseif WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
-        return "classic"
-    else
-        return "unknown"
-    end
-end
-
 local Options = {
     name = "Incognito Resurrected",
     type = "group",
@@ -84,7 +71,7 @@ local Options = {
                 },
                 -- New option: Bracket style selector
                 bracketStyle = {
-                    order = 5,
+                    order = 6,
                     type = "select",
                     name = L["bracketStyle"],
                     desc = L["bracketStyle_desc"],
@@ -92,7 +79,7 @@ local Options = {
                 },
                 -- New option: Colorize prefix by class color
                 colorizePrefix = {
-                    order = 6,
+                    order = 7,
                     type = "toggle",
                     name = "Color prefix by class",
                     desc = "Color any leading bracketed name ((), [], {}, <>) with the sender's class color on your client.",
@@ -485,4 +472,5 @@ end
 function IncognitoResurrected:OnDisable()
     self:UnregisterChatFilters()
 end
+
 
