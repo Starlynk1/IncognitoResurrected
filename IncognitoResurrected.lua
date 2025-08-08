@@ -229,11 +229,7 @@ function IncognitoResurrected:OnInitialize()
     }
 
     -- Hook SendChatMessage function
-    if GetWoWVersion == "mists" or "classic" then
-        self:RawHook("SendChatMessage", true)
-    else
-        self:RawHook(C_ChatInfo, "SendChatMessage", true)
-    end
+    self:RawHook(C_ChatInfo, "SendChatMessage", true)
 
     -- get current character name
     character_name, _ = UnitName("player")
@@ -283,11 +279,7 @@ function IncognitoResurrected:SendChatMessage(msg, chatType, language, target)
     end
 
     -- Call original function
-    if GetWoWVersion == "mists" or "classic" then
-        self.hooks.SendChatMessage(msg, chatType, language, target)
-    else
-        self.hooks[C_ChatInfo].SendChatMessage(msg, chatType, language, target)
-    end
+    self.hooks[C_ChatInfo].SendChatMessage(msg, chatType, language, target)
 end
 
 ---------------------------
@@ -314,3 +306,4 @@ function IsInLFR()
     local _, instanceType, difficultyID = GetInstanceInfo()
     return instanceType == "raid" and difficultyID == 17
 end
+
