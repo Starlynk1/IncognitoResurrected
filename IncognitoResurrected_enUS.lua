@@ -54,3 +54,7 @@ L["channel_info_text"] = "World channels (Say, General, Trade, Services) are not
 -- New localization for ignoreLeadingSymbols
 L["ignoreLeadingSymbols"] = "Ignore leading symbols"
 L["ignoreLeadingSymbols_desc"] = "If a message starts with any of these characters (after any spaces), do not add the name prefix."
+
+-- New localization for bracketStyle selector
+L["bracketStyle"] = "Bracket style"
+L["bracketStyle_desc"] = "Choose which brackets to surround your name with in chat messages."
