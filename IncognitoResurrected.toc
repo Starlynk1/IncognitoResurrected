@@ -3,7 +3,7 @@
 ## Notes: Adds your name to chat messages
 
 ## Author: info@starlynk.net
-## Version: 1.2.4
+## Version: 1.2.5
 ## SavedVariables: IncognitoResurrectedDB
 ## OptionalDeps: Ace3
 
@@ -20,3 +20,4 @@ IncognitoResurrected_enUS.lua
 IncognitoResurrected_deDE.lua
 IncognitoResurrected_ruRU.lua
 IncognitoResurrected.lua
+
