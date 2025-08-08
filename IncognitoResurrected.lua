@@ -1,6 +1,6 @@
 ------------------------
 ---		Version      ---
----		 1.2.6       ---
+---		 1.3.2       ---
 ------------------------
 ------------------------
 ---		Module       ---
@@ -472,5 +472,6 @@ end
 function IncognitoResurrected:OnDisable()
     self:UnregisterChatFilters()
 end
+
 
 
