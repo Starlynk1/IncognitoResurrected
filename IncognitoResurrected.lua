@@ -84,6 +84,14 @@ local Options = {
                     name = L["bracketStyle"],
                     desc = L["bracketStyle_desc"],
                     values = { paren = "(round)", square = "[square]", curly = "{curly}", angle = "<angle>" }
+                },
+                -- New option: Colorize prefix by class color
+                colorizePrefix = {
+                    order = 6,
+                    type = "toggle",
+                    name = "Color prefix by class",
+                    desc = "Color any leading bracketed name ((), [], {}, <>) with the sender's class color on your client.",
+                    width = "full"
                 }
             }
         },
@@ -192,7 +200,9 @@ local Defaults = {
         -- Default ignored leading symbols
         ignoreLeadingSymbols = "/!#@?.",
         -- Default bracket style
-        bracketStyle = "paren"
+        bracketStyle = "paren",
+        -- Class-color the bracketed prefix in chat frames
+        colorizePrefix = true
     }
 }
 
@@ -362,6 +372,102 @@ function IncognitoResurrected:GetNamePrefix()
     local style = (self.db and self.db.profile and self.db.profile.bracketStyle) or "paren"
     local pairs = { paren = {"(", ")"}, square = {"[", "]"}, curly = {"{", "}"}, angle = {"<", ">"} }
     local pair = pairs[style] or pairs.paren
-    return pair[1] .. (self.db.profile.name or "") .. pair[2] .. " "
+    return pair[1] .. (self.db.profile.name or "") .. pair[2] .. ": "
+end
+
+-- Class-color prefix rendering (client-side)
+local OPEN_TO_CLOSE = { ["("] = ")", ["["] = "]", ["{"] = "}", ["<"] = ">" }
+
+local function ExtractPlayerGUID(...)
+    local n = select("#", ...)
+    for i = 1, n do
+        local v = select(i, ...)
+        if type(v) == "string" and v:match("^Player%-") then
+            return v
+        end
+    end
+end
+
+function IncognitoResurrected:ChatPrefixColorFilter(frame, event, msg, author, ...)
+    if not (self.db and self.db.profile and self.db.profile.enable and self.db.profile.colorizePrefix) then
+        return false
+    end
+
+    -- Match a leading bracketed name, requiring a colon after the closing bracket.
+    -- Supports optional spaces before and after the colon.
+    -- Examples: "(Name):msg", "(Name): msg", "(Name) :msg", "(Name) : msg"
+    local pre, open, name, close, spacesAfterClose, colonSpaces, rest = msg:match("^(%s*)([%(%[%{%<])([^%(%[%{%<%]%}%>]+)([%)%]%}%>])(%s*):(%s*)(.*)$")
+    if not open then
+        return false
+    end
+    if OPEN_TO_CLOSE[open] ~= close then
+        return false
+    end
+
+    -- Resolve class color of the sender
+    local guid = ExtractPlayerGUID(...)
+    local classFile
+    if guid and GetPlayerInfoByGUID then
+        local _, cf = GetPlayerInfoByGUID(guid)
+        classFile = cf
+    end
+    if not classFile and author and UnitClass then
+        local unit = Ambiguate and Ambiguate(author, "none") or author
+        local _, cf = UnitClass(unit)
+        classFile = cf
+    end
+    if not classFile then
+        return false
+    end
+
+    local colors = (type(CUSTOM_CLASS_COLORS) == "table" and CUSTOM_CLASS_COLORS) or RAID_CLASS_COLORS
+    local c = colors and colors[classFile]
+    if not c then
+        return false
+    end
+
+    local hex = string.format("|cff%02x%02x%02x", math.floor((c.r or 1)*255 + 0.5), math.floor((c.g or 1)*255 + 0.5), math.floor((c.b or 1)*255 + 0.5))
+    local newMsg = string.format("%s%s%s%s|r%s%s:%s%s", pre or "", open, hex, name or "", close, spacesAfterClose or "", colonSpaces or "", rest or "")
+    return false, newMsg, author, ...
+end
+
+function IncognitoResurrected:_EnsureChatFilterSetup()
+    if self._ChatFilterFunc then return end
+    self._filterEvents = {
+        "CHAT_MSG_SAY","CHAT_MSG_YELL","CHAT_MSG_EMOTE","CHAT_MSG_TEXT_EMOTE",
+        "CHAT_MSG_GUILD","CHAT_MSG_OFFICER",
+        "CHAT_MSG_PARTY","CHAT_MSG_PARTY_LEADER",
+        "CHAT_MSG_RAID","CHAT_MSG_RAID_LEADER","CHAT_MSG_RAID_WARNING",
+        "CHAT_MSG_INSTANCE_CHAT","CHAT_MSG_INSTANCE_CHAT_LEADER",
+        "CHAT_MSG_CHANNEL","CHAT_MSG_WHISPER","CHAT_MSG_WHISPER_INFORM"
+    }
+    self._ChatFilterFunc = function(frame, event, msg, author, ...)
+        return IncognitoResurrected:ChatPrefixColorFilter(frame, event, msg, author, ...)
+    end
+end
+
+function IncognitoResurrected:RegisterChatFilters()
+    self:_EnsureChatFilterSetup()
+    if self._filtersRegistered then return end
+    for _, ev in ipairs(self._filterEvents) do
+        ChatFrame_AddMessageEventFilter(ev, self._ChatFilterFunc)
+    end
+    self._filtersRegistered = true
+end
+
+function IncognitoResurrected:UnregisterChatFilters()
+    if not self._filtersRegistered then return end
+    for _, ev in ipairs(self._filterEvents) do
+        ChatFrame_RemoveMessageEventFilter(ev, self._ChatFilterFunc)
+    end
+    self._filtersRegistered = false
+end
+
+function IncognitoResurrected:OnEnable()
+    self:RegisterChatFilters()
+end
+
+function IncognitoResurrected:OnDisable()
+    self:UnregisterChatFilters()
 end
 
