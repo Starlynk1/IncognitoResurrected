@@ -55,3 +55,12 @@ L["ignoreLeadingSymbols_desc"] = "Если сообщение начинаетс
 -- New localization for bracketStyle selector
 L["bracketStyle"] = "Тип скобок"
 L["bracketStyle_desc"] = "Выберите, какими скобками окружать ваше имя в сообщениях чата."
+
+L["lfr"] = "LFR"
+L["lfr_desc"] = "Добавлять имя в сообщения чата LFR (/raid или /i)."
+
+L["hideOnPartialCharNameMatch"] = "Также скрывать при частичном совпадении имён"
+L["hideOnPartialCharNameMatch_desc"] = "Если включено, имя будет скрыто, если имя персонажа начинается с настроенного имени (без учёта регистра)."
+
+L["colorizePrefix"] = "Окрашивать префикс по классу"
+L["colorizePrefix_desc"] = "Окрашивает любой ведущий заключённый в скобки префикс имени ((), [], {}, <>) в цвет класса отправителя на вашем клиенте."

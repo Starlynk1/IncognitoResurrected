@@ -49,6 +49,10 @@ L["channel_desc"] = "Add name to chat messages in this custom channel. Single Ch
 L["hideOnMatchingCharName"] = "Hide name if it matches your character's name"
 L["hideOnMatchingCharName_desc"] = "If the name specified above matches your current character's name, IncognitoResurrected will not add it again if this option is checked."
 
+-- Also hide when the character name begins with the configured name (one-way)
+L["hideOnPartialCharNameMatch"] = "Also hide if the names partially match"
+L["hideOnPartialCharNameMatch_desc"] = "When enabled, the name will be hidden if the character name begins with the configured name (case-insensitive)."
+
 L["channel_info_text"] = "World channels (Say, General, Trade, Services) are not acceptable options.\nThis is a limitation within the Blizzard API."
 
 -- New localization for ignoreLeadingSymbols
