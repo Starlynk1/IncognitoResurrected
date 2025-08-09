@@ -55,6 +55,17 @@ local Options = {
                     desc = L["hideOnMatchingCharName_desc"],
                     width = "full"
                 },
+                -- New option: Hide if partial match with character name
+                hideOnPartialCharNameMatch = {
+                    order = 3.5,
+                    type = "toggle",
+                    name = L["hideOnPartialCharNameMatch"],
+                    desc = L["hideOnPartialCharNameMatch_desc"],
+                    width = "full",
+                    disabled = function()
+                        return not IncognitoResurrected.db.profile.hideOnMatchingCharName
+                    end
+                },
                 -- New option: Colorize prefix by class color
                 colorizePrefix = {
                     order = 4,
@@ -194,6 +205,8 @@ local Defaults = {
         debug = false,
         channel = nil,
         hideOnMatchingCharName = true,
+        -- Also hide when the configured name partially matches the character name
+        hideOnPartialCharNameMatch = false,
         -- Default ignored leading symbols
         ignoreLeadingSymbols = "/!#@?",
         -- Default bracket style
@@ -294,9 +307,22 @@ function IncognitoResurrected:SendChatMessage(msg, chatType, language, target)
 
     if self.db.profile.enable then
         if self.db.profile.name and self.db.profile.name ~= "" then
-            if (not self.db.profile.hideOnMatchingCharName) or
-                (self.db.profile.name ~= character_name) then
+            -- Determine if we should suppress adding the prefix based on exact/partial match
+            local shouldAddPrefix = true
+            if self.db.profile.hideOnMatchingCharName and character_name then
+                local nLower = string.lower(self.db.profile.name)
+                local cLower = string.lower(character_name or "")
+                if nLower == cLower then
+                    shouldAddPrefix = false
+                elseif self.db.profile.hideOnPartialCharNameMatch then
+                    -- Hide if the character name begins with the configured name (case-insensitive)
+                    if cLower:sub(1, #nLower) == nLower then
+                        shouldAddPrefix = false
+                    end
+                end
+            end
 
+            if shouldAddPrefix then
                 if (self.db.profile.guild and
                     (chatType == "GUILD" or chatType == "OFFICER")) or
                     (self.db.profile.raid and chatType == "RAID") or
