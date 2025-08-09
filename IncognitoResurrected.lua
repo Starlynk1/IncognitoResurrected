@@ -68,6 +68,17 @@ local Options = {
                     desc = L["hideOnMatchingCharName_desc"],
                     width = "full"
                 },
+                -- New option: Hide if partial match with character name
+                hideOnPartialCharNameMatch = {
+                    order = 3.5,
+                    type = "toggle",
+                    name = L["hideOnPartialCharNameMatch"],
+                    desc = L["hideOnPartialCharNameMatch_desc"],
+                    width = "full",
+                    disabled = function()
+                        return not IncognitoResurrected.db.profile.hideOnMatchingCharName
+                    end
+                },
                 -- New option: Ignore leading symbols
                 ignoreLeadingSymbols = {
                     order = 4,
@@ -94,8 +105,8 @@ local Options = {
                 colorizePrefix = {
                     order = 6,
                     type = "toggle",
-                    name = "Color prefix by class",
-                    desc = "Color any leading bracketed name ((), [], {}, <>) with the sender's class color on your client.",
+                    name = L["colorizePrefix"],
+                    desc = L["colorizePrefix_desc"],
                     width = "full"
                 }
             }
@@ -202,6 +213,8 @@ local Defaults = {
         debug = false,
         channel = nil,
         hideOnMatchingCharName = true,
+        -- Also hide when the configured name partially matches the character name
+        hideOnPartialCharNameMatch = false,
         -- Default ignored leading symbols
         ignoreLeadingSymbols = "/!#@?",
         -- Default bracket style
@@ -302,9 +315,22 @@ function IncognitoResurrected:SendChatMessage(msg, chatType, language, target)
 
     if self.db.profile.enable then
         if self.db.profile.name and self.db.profile.name ~= "" then
-            if (not self.db.profile.hideOnMatchingCharName) or
-                (self.db.profile.name ~= character_name) then
+            -- Determine if we should suppress adding the prefix based on exact/partial match
+            local shouldAddPrefix = true
+            if self.db.profile.hideOnMatchingCharName and character_name then
+                local nLower = string.lower(self.db.profile.name)
+                local cLower = string.lower(character_name)
+                if nLower == cLower then
+                    shouldAddPrefix = false
+                elseif self.db.profile.hideOnPartialCharNameMatch then
+                    -- Hide only if either starts with the other (prefix match, case-insensitive)
+                    if nLower:sub(1, #cLower) == cLower or cLower:sub(1, #nLower) == nLower then
+                        shouldAddPrefix = false
+                    end
+                end
+            end
 
+            if shouldAddPrefix then
                 if (self.db.profile.guild and
                     (chatType == "GUILD" or chatType == "OFFICER")) or
                     (self.db.profile.raid and chatType == "RAID") or
