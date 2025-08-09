@@ -20,18 +20,6 @@ local L = LibStub("AceLocale-3.0"):GetLocale("IncognitoResurrected", true)
 --     Get WoW Version    --
 ----------------------------
 
-function GetWoWVersion()
-    if WOW_PROJECT_ID == WOW_PROJECT_MAINLINE then
-        return "retail"
-    elseif WOW_PROJECT_ID == WOW_PROJECT_MISTS_CLASSIC then
-        return "mists"
-    elseif WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
-        return "classic"
-    else
-        return "unknown"
-    end
-end
-
 local Options = {
     name = "Incognito Resurrected",
     type = "group",
