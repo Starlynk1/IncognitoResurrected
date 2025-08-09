@@ -16,10 +16,6 @@ IncognitoResurrected = LibStub("AceAddon-3.0"):NewAddon("IncognitoResurrected",
 
 local L = LibStub("AceLocale-3.0"):GetLocale("IncognitoResurrected", true)
 
-----------------------------
---     Get WoW Version    --
-----------------------------
-
 local Options = {
     name = "Incognito Resurrected",
     type = "group",
