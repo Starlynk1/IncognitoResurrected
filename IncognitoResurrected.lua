@@ -55,13 +55,20 @@ local Options = {
                     desc = L["hideOnMatchingCharName_desc"],
                     width = "full"
                 },
-                -- New option: Hide if partial match with character name
-                hideOnPartialCharNameMatch = {
+                -- Matching mode for character vs configured name
+                partialMatchMode = {
                     order = 3.5,
-                    type = "toggle",
-                    name = L["hideOnPartialCharNameMatch"],
-                    desc = L["hideOnPartialCharNameMatch_desc"],
-                    width = "full",
+                    type = "select",
+                    name = L["partialMatchMode"],
+                    desc = L["partialMatchMode_desc"],
+                    values = {
+                        disabled = L["partialMatchMode_disabled"],
+                        start = L["partialMatchMode_start"],
+                        anywhere = L["partialMatchMode_anywhere"],
+                        ["end"] = L["partialMatchMode_end"]
+                    },
+                    sorting = { "disabled", "start", "anywhere", "end" },
+                    width = "normal",
                     disabled = function()
                         return not IncognitoResurrected.db.profile.hideOnMatchingCharName
                     end
@@ -205,8 +212,8 @@ local Defaults = {
         debug = false,
         channel = nil,
         hideOnMatchingCharName = true,
-        -- Also hide when the configured name partially matches the character name
-        hideOnPartialCharNameMatch = false,
+        -- How to treat partial matches between configured and character name
+        partialMatchMode = "disabled",
         -- Default ignored leading symbols
         ignoreLeadingSymbols = "/!#@?",
         -- Default bracket style
@@ -314,10 +321,22 @@ function IncognitoResurrected:SendChatMessage(msg, chatType, language, target)
                 local cLower = string.lower(character_name or "")
                 if nLower == cLower then
                     shouldAddPrefix = false
-                elseif self.db.profile.hideOnPartialCharNameMatch then
-                    -- Hide if the character name begins with the configured name (case-insensitive)
-                    if cLower:sub(1, #nLower) == nLower then
-                        shouldAddPrefix = false
+                else
+                    local mode = self.db.profile.partialMatchMode or "disabled"
+                    if mode ~= "disabled" and #nLower > 0 then
+                        if mode == "start" then
+                            if cLower:sub(1, #nLower) == nLower then
+                                shouldAddPrefix = false
+                            end
+                        elseif mode == "anywhere" then
+                            if cLower:find(nLower, 1, true) ~= nil then
+                                shouldAddPrefix = false
+                            end
+                        elseif mode == "end" then
+                            if cLower:sub(-#nLower) == nLower then
+                                shouldAddPrefix = false
+                            end
+                        end
                     end
                 end
             end

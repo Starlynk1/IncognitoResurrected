@@ -49,9 +49,7 @@ L["channel_desc"] = "Add name to chat messages in this custom channel. Single Ch
 L["hideOnMatchingCharName"] = "Hide name if it matches your character's name"
 L["hideOnMatchingCharName_desc"] = "If the name specified above matches your current character's name, IncognitoResurrected will not add it again if this option is checked."
 
--- Also hide when the character name begins with the configured name (one-way)
-L["hideOnPartialCharNameMatch"] = "Also hide if the names partially match"
-L["hideOnPartialCharNameMatch_desc"] = "When enabled, the name will be hidden if the character name begins with the configured name (case-insensitive)."
+-- Remove legacy partial match toggle strings (no longer used)
 
 L["channel_info_text"] = "World channels (Say, General, Trade, Services) are not acceptable options.\nThis is a limitation within the Blizzard API."
 
@@ -62,3 +60,11 @@ L["ignoreLeadingSymbols_desc"] = "If a message starts with any of these characte
 -- New localization for bracketStyle selector
 L["bracketStyle"] = "Bracket style"
 L["bracketStyle_desc"] = "Choose which brackets to surround your name with in chat messages."
+
+-- Partial match dropdown
+L["partialMatchMode"] = "Partial match"
+L["partialMatchMode_desc"] = "Hide the prefix when your character name matches the configured name by the selected rule (case-insensitive). Requires 'Hide name if it matches your character's name' to be enabled."
+L["partialMatchMode_disabled"] = "Disabled"
+L["partialMatchMode_start"] = "Start of name"
+L["partialMatchMode_anywhere"] = "Anywhere"
+L["partialMatchMode_end"] = "End of name"

@@ -49,10 +49,15 @@ L["channel_desc"] = "Deinen Namen in diesem benutzerdefinierten Kanal anzeigen."
 L["hideOnMatchingCharName"] = "Name nicht anzeigen, wenn er mit dem Charakternamen übereinstimmt"
 L["hideOnMatchingCharName_desc"] = "Wenn der oben angegebene Name gleich dem Namen deines aktuellen Charakters ist, fügt ihn IncognitoResurrected nicht hinzu, wenn diese Option ausgewählt ist."
 
-L["hideOnPartialCharNameMatch"] = "Auch ausblenden, wenn Namen teilweise übereinstimmen"
-L["hideOnPartialCharNameMatch_desc"] = "Wenn aktiviert, wird der Name ausgeblendet, wenn der Charaktername mit dem konfigurierten Namen beginnt (Groß-/Kleinschreibung wird ignoriert)."
-
 L["channel_info_text"] = "Weltkanäle (Sagen, Allgemein, Handel, Dienstleistungen) sind keine zulässigen Optionen.\nDies ist eine Einschränkung der Blizzard-API."
 
 L["colorizePrefix"] = "Namenspräfix in Klassenfarbe färben"
 L["colorizePrefix_desc"] = "Färbt jedes führende eingeklammerte Namenspräfix ((), [], {}, <>) in der Klassenfarbe des Absenders auf deinem Client."
+
+-- Teilweiser Abgleich (Dropdown)
+L["partialMatchMode"] = "Teilweiser Abgleich"
+L["partialMatchMode_desc"] = "Blendet das Präfix aus, wenn der Charaktername gemäß der ausgewählten Regel mit dem konfigurierten Namen übereinstimmt (Groß-/Kleinschreibung ignoriert). Erfordert, dass 'Name nicht anzeigen, wenn er mit dem Charakternamen übereinstimmt' aktiviert ist."
+L["partialMatchMode_disabled"] = "Deaktiviert"
+L["partialMatchMode_start"] = "Anfang des Namens"
+L["partialMatchMode_anywhere"] = "Irgendwo"
+L["partialMatchMode_end"] = "Ende des Namens"
