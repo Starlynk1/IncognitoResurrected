@@ -32,3 +32,8 @@ LFR option was disabled temporarily. Will be working on adding that option again
 **Features and Bugs**
 If you have a feature request of find a bug please report them through the Github repository:
 https://github.com/Starlynk1/IncognitoResurrected/issues
+
+Original Author: Nyyr
+Resurrected Author: Starlynk
+Collaborator: TheIceBadger
+Contributors: Hubbotu

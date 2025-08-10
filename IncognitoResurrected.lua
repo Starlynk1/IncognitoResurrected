@@ -1,24 +1,13 @@
-------------------------
----		Version      ---
----		 1.3.2       ---
-------------------------
-------------------------
----		Module       ---
-------------------------
+--  Version: 1.3.2
 IncognitoResurrected = LibStub("AceAddon-3.0"):NewAddon("IncognitoResurrected",
                                                         "AceConsole-3.0",
                                                         "AceEvent-3.0",
                                                         "AceHook-3.0");
 
-----------------------------
---      Localization      --
-----------------------------
-
+--  Localization
 local L = LibStub("AceLocale-3.0"):GetLocale("IncognitoResurrected", true)
 
-----------------------------
---     Main Section       --
-----------------------------
+--  Main Section
 local Options = {
     name = "Incognito Resurrected",
     type = "group",
@@ -226,12 +215,10 @@ local SlashOptions = {
 }
 
 local SlashCmds = {"inc", "incognito", "IncognitoResurrected"};
-
 local character_name
 
-----------------------
----      Init      ---
-----------------------
+--  Init
+
 
 function IncognitoResurrected:OnInitialize()
 
@@ -271,10 +258,7 @@ function IncognitoResurrected:OnInitialize()
     self:Safe_Print(L["Loaded"])
 end
 
---------------------------------
----      Event Handlers      ---
---------------------------------
-
+--  Event Handlers
 function IncognitoResurrected:SendChatMessage(msg, chatType, language, target)
     -- Early out: ignore messages starting with configured symbols (after spaces)
     if self.db and self.db.profile and self.db.profile.enable and type(msg) ==
@@ -335,10 +319,7 @@ function IncognitoResurrected:SendChatMessage(msg, chatType, language, target)
     end
 end
 
----------------------------
----      Functions      ---
----------------------------
-
+--  Functions
 function IncognitoResurrected:Safe_Print(msg)
     if self.db.profile.debug then self:Print(msg) end
 end
