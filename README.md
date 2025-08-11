@@ -1,19 +1,21 @@
-# Incognito Resurrected
-Incognito adds your specified name in front of your chat messages. Incongito Resurrrected can be enabled for guild (and officer), party and raid chat messages.
 
-**Examples:**  
-[Guild] [Yourchar]: Some chat message
+# Incognito Resurrected
+#### Incognito adds your specified name in front of your chat messages. Incongito Resurrrected can be enabled for guild (and officer), party and raid chat messages.
+
+## Example
+<pre><code>[Guild] [Yourchar]: Some chat message </code></pre>
 becomes  
-[Guild] [Yourchar]: (Yourname): Some chat message
-Usage  
+<pre><code>[Guild] [Yourchar]: (Yourname): Some chat message</code></pre>
+
+## Usage  
 
 **You can use the GUI config dialog or the slash commands /incognito or /inc
-slash options**
+slash options**  
 - /incognito config - Open configuration dialog
 - /incognito enable - Enable or disable adding your name to chat messages
 - /incognito name - The name that should be displayed in your chat messages
 
-**AddOns Options**
+## AddOns Options
 - Enable - Enable adding your name to chat messages.
 - Name - The name that should be displayed in your chat messages
 - Guild - Add name to guild chat messages
@@ -26,14 +28,16 @@ slash options**
     (Use comma-separation to add multiple channels)
 - Debug - Enable debugging messages output. You probably don't want to enable this 
 
-**Known Issues**
-LFR option was disabled temporarily. Will be working on adding that option again soon.
+## Known Issues
+LFR option was disabled temporarily.  
+Will be working on adding that option again soon.
 
-**Features and Bugs**
-If you have a feature request of find a bug please report them through the Github repository:
+## Features and Bugs
+If you have a feature request of find a bug please report them through the Github repository:  
 https://github.com/Starlynk1/IncognitoResurrected/issues
 
-Original Author: Nyyr
-Resurrected Author: Starlynk
-Collaborator: TheIceBadger
-Contributors: Hubbotu
+## Credits
+Original Author: Nyyr  
+Resurrected Author: Starlynk  
+Collaborator: TheIceBadger  
+Contributors: Hubbotu  
