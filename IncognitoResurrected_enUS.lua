@@ -56,3 +56,10 @@ L["ignoreLeadingSymbols_desc"] = "If a message starts with any of these characte
 
 L["bracketStyle"] = "Bracket style"
 L["bracketStyle_desc"] = "Choose which brackets to surround your name with in chat messages."
+
+L["partialMatchMode"] = "Partial match"
+L["partialMatchMode_desc"] = "Hide the prefix when your character name matches the configured name by the selected rule (case-insensitive). Requires 'Hide name if it matches your character's name' to be enabled."
+L["partialMatchMode_disabled"] = "Disabled"
+L["partialMatchMode_start"] = "Start of name"
+L["partialMatchMode_anywhere"] = "Anywhere"
+L["partialMatchMode_end"] = "End of name"

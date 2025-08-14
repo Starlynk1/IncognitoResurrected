@@ -44,6 +44,24 @@ local Options = {
                     desc = L["hideOnMatchingCharName_desc"],
                     width = "full"
                 },
+                -- Matching mode for character vs configured name
+                partialMatchMode = {
+                    order = 3.5,
+                    type = "select",
+                    name = L["partialMatchMode"],
+                    desc = L["partialMatchMode_desc"],
+                    values = {
+                        disabled = L["partialMatchMode_disabled"],
+                        start = L["partialMatchMode_start"],
+                        anywhere = L["partialMatchMode_anywhere"],
+                        ["end"] = L["partialMatchMode_end"]
+                    },
+                    sorting = { "disabled", "start", "anywhere", "end" },
+                    width = "normal",
+                    disabled = function()
+                        return not IncognitoResurrected.db.profile.hideOnMatchingCharName
+                    end
+                },
                 -- New option: Colorize prefix by class color
                 colorizePrefix = {
                     order = 4,
@@ -278,9 +296,34 @@ function IncognitoResurrected:SendChatMessage(msg, chatType, language, target)
 
     if self.db.profile.enable then
         if self.db.profile.name and self.db.profile.name ~= "" then
-            if (not self.db.profile.hideOnMatchingCharName) or
-                (self.db.profile.name ~= character_name) then
+            -- Determine if we should suppress adding the prefix based on exact/partial match
+            local shouldAddPrefix = true
+            if self.db.profile.hideOnMatchingCharName and character_name then
+                local nLower = string.lower(self.db.profile.name)
+                local cLower = string.lower(character_name or "")
+                if nLower == cLower then
+                    shouldAddPrefix = false
+                else
+                    local mode = self.db.profile.partialMatchMode or "disabled"
+                    if mode ~= "disabled" and #nLower > 0 then
+                        if mode == "start" then
+                            if cLower:sub(1, #nLower) == nLower then
+                                shouldAddPrefix = false
+                            end
+                        elseif mode == "anywhere" then
+                            if cLower:find(nLower, 1, true) ~= nil then
+                                shouldAddPrefix = false
+                            end
+                        elseif mode == "end" then
+                            if cLower:sub(-#nLower) == nLower then
+                                shouldAddPrefix = false
+                            end
+                        end
+                    end
+                end
+            end
 
+            if shouldAddPrefix then
                 if (self.db.profile.guild and
                     (chatType == "GUILD" or chatType == "OFFICER")) or
                     (self.db.profile.raid and chatType == "RAID") or
