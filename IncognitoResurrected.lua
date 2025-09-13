@@ -1,4 +1,4 @@
---  Version: 1.3.2
+--  Version: 1.3.3
 IncognitoResurrected = LibStub("AceAddon-3.0"):NewAddon("IncognitoResurrected",
                                                         "AceConsole-3.0",
                                                         "AceEvent-3.0",
@@ -496,3 +496,4 @@ end
 function IncognitoResurrected:OnEnable() self:RegisterChatFilters() end
 
 function IncognitoResurrected:OnDisable() self:UnregisterChatFilters() end
+
