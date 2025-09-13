@@ -1,7 +1,4 @@
-------------------------
----		Version      ---
----		 1.3.2       ---
-------------------------
+-- Version 1.3.3
 local L = LibStub("AceLocale-3.0"):NewLocale("IncognitoResurrected", "enUS",
                                              true)
 
