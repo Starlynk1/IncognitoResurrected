@@ -56,10 +56,11 @@ local Options = {
                         anywhere = L["partialMatchMode_anywhere"],
                         ["end"] = L["partialMatchMode_end"]
                     },
-                    sorting = { "disabled", "start", "anywhere", "end" },
+                    sorting = {"disabled", "start", "anywhere", "end"},
                     width = "normal",
                     disabled = function()
-                        return not IncognitoResurrected.db.profile.hideOnMatchingCharName
+                        return not IncognitoResurrected.db.profile
+                                   .hideOnMatchingCharName
                     end
                 },
                 -- New option: Colorize prefix by class color
@@ -119,26 +120,26 @@ local Options = {
                     desc = L["guild_desc"]
                 },
                 guildinfo = {
-                    order = 2,
+                    order = 1.5,
                     type = "description",
                     name = "|cFFFFA500" .. L["guildinfo"]
                 },
                 party = {
-                    order = 3,
+                    order = 2,
                     type = "toggle",
                     width = "full",
                     name = L["party"],
                     desc = L["party_desc"]
                 },
                 raid = {
-                    order = 4,
+                    order = 3,
                     type = "toggle",
                     width = "full",
                     name = L["raid"],
                     desc = L["raid_desc"]
                 },
                 lfr = {
-                    order = 5,
+                    order = 4,
                     type = "toggle",
                     width = "full",
                     name = L["lfr"],
@@ -148,37 +149,48 @@ local Options = {
                     end
                 },
                 instance_chat = {
-                    order = 6,
+                    order = 5,
                     type = "toggle",
                     width = "full",
                     name = L["instance_chat"],
                     desc = L["instance_chat_desc"]
                 },
                 world_chat = {
-                    order = 7,
+                    order = 6,
                     type = "toggle",
                     width = "full",
                     name = L["world_chat"],
                     desc = L["world_chat_desc"]
                 },
                 world_chat_info = {
-                    order = 8,
+                    order = 6.5,
                     type = "description",
                     name = "|cFFFFA500" .. L["world_chat_info_desc"]
                 },
                 channel = {
-                    order = 9,
+                    order = 7,
                     type = "input",
                     name = L["channel"],
                     desc = L["channel_desc"]
                 },
                 channelinfo = {
-                    order = 10,
+                    order = 7.5,
                     type = "description",
                     name = "|cFFFFA500" .. L["channel_info_text"]
                 },
+                community = {
+                    order = 8,
+                    type = "input",
+                    name = L["community"],
+                    desc = L["community_desc"]
+                },
+                communityinfo = {
+                    order = 8.5,
+                    type = "description",
+                    name = "|cFFFFA500" .. L["community_info_text"]
+                },
                 debug = {
-                    order = 11,
+                    order = 9,
                     type = "toggle",
                     width = "full",
                     name = L["debug"],
@@ -200,6 +212,7 @@ local Defaults = {
         world_chat = false,
         debug = false,
         channel = nil,
+        community = nil,
         hideOnMatchingCharName = true,
         -- Default ignored leading symbols
         ignoreLeadingSymbols = "/!#@?",
@@ -237,7 +250,6 @@ local character_name
 
 --  Init
 
-
 function IncognitoResurrected:OnInitialize()
 
     -- Load our database.
@@ -264,8 +276,13 @@ function IncognitoResurrected:OnInitialize()
     -- Hook SendChatMessage function using feature detection
     self._useCChatInfo = type(C_ChatInfo) == "table" and
                              type(C_ChatInfo.SendChatMessage) == "function"
+    self._useCClubInfo = type(C_Club) == "table" and type(C_Club.SendMessage) ==
+                             "function"
+
     if self._useCChatInfo then
         self:RawHook(C_ChatInfo, "SendChatMessage", true)
+    elseif self._useCClubInfo then
+        self:RawHook(C_Club, "SendMessage", true)
     else
         self:RawHook("SendChatMessage", true)
     end
@@ -360,6 +377,58 @@ function IncognitoResurrected:SendChatMessage(msg, chatType, language, target)
     else
         self.hooks.SendChatMessage(msg, chatType, language, target)
     end
+end
+
+function IncognitoResurrected:SendMessage(clubID, streamID, msg)
+    if self.db and self.db.profile and self.db.profile.enable and type(msg) ==
+        "string" then
+        local symbols = self.db.profile.ignoreLeadingSymbols or "/!#"
+        local firstChar = msg:match("^%s*(.)")
+        if firstChar and symbols:find(firstChar, 1, true) then
+            self.hooks[C_Club].SendMessage(clubID, streamID, msg)
+            return
+        end
+    end
+    if self.db.profile.enable and self.db.profile.community then
+        local clubInfo = C_Club.GetClubInfo(clubID)
+        if clubInfo and clubInfo.clubType == Enum.ClubType.Character then
+            local shouldAddPrefix = true
+            if self.db.profile.hideOnMatchingCharName and character_name then
+                local nLower = string.lower(self.db.profile.name)
+                local cLower = string.lower(character_name or "")
+                if nLower == cLower then
+                    shouldAddPrefix = false
+                else
+                    local mode = self.db.profile.partialMatchMode or "disabled"
+                    if mode ~= "disabled" and #nLower > 0 then
+                        if mode == "start" then
+                            if cLower:sub(1, #nLower) == nLower then
+                                shouldAddPrefix = false
+                            end
+                        elseif mode == "anywhere" then
+                            if cLower:find(nLower, 1, true) ~= nil then
+                                shouldAddPrefix = false
+                            end
+                        elseif mode == "end" then
+                            if cLower:sub(-#nLower) == nLower then
+                                shouldAddPrefix = false
+                            end
+                        end
+                    end
+                end
+            end
+            for i in string.gmatch(self.db.profile.community, '([^,]+)') do
+                local nameToMatch = strtrim(i)
+                if strupper(nameToMatch) == strupper(clubInfo.name) then
+                    if shouldAddPrefix then
+                        msg = self:GetNamePrefix() .. msg
+                    end
+                    break
+                end
+            end
+        end
+    end
+    self.hooks[C_Club].SendMessage(clubID, streamID, msg)
 end
 
 --  Functions
