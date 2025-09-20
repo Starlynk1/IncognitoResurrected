@@ -200,12 +200,18 @@ local Options = {
                     type = "toggle",
                     width = "full",
                     name = L["community"],
-                    desc = L["community_desc"]
+                    desc = L["community_desc"],
+                    hidden = function()
+                        return not IncognitoResurrected:IsLFRAvailable()
+                    end
                 },
                 communityinfo = {
                     order = 8.5,
                     type = "description",
-                    name = "|cFFFFA500" .. L["community_info_text"]
+                    name = "|cFFFFA500" .. L["community_info_text"],
+                    hidden = function()
+                        return not IncognitoResurrected:IsLFRAvailable()
+                    end
                 },
                 debug = {
                     order = 9,
@@ -574,3 +580,4 @@ function IncognitoResurrected:UnregisterChatFilters()
 end
 function IncognitoResurrected:OnEnable() self:RegisterChatFilters() end
 function IncognitoResurrected:OnDisable() self:UnregisterChatFilters() end
+
