@@ -1,4 +1,4 @@
--- Version 1.3.3
+-- Version 1.4.0
 
 local L = LibStub("AceLocale-3.0"):NewLocale("IncognitoResurrected", "ruRU", true)
 
@@ -39,6 +39,9 @@ L["debug_desc"] = "Включить вывод отладочных сообще
 
 L["channel"] = "Канал"
 L["channel_desc"] = "Добавлять имя в сообщения чата в этом пользовательском канале. Только один канал."
+
+L["community"] = "Community"
+L["community_desc"] = "Add name to chat messages in the Selected Community channels. Seperate with comma."
 
 L["hideOnMatchingCharName"] = "Скрыть имя, если оно совпадает с именем персонажа"
 L["hideOnMatchingCharName_desc"] = "Если указанное выше имя совпадает с именем вашего текущего персонажа, IncognitoResurrected не будет добавлять его снова, если эта опция включена."

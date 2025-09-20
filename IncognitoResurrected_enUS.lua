@@ -1,4 +1,4 @@
--- Version 1.3.2
+-- Version 1.4.0
 
 local L = LibStub("AceLocale-3.0"):NewLocale("IncognitoResurrected", "enUS", true)
 
@@ -42,6 +42,9 @@ L["debug_desc"] = "Enable debugging messages output. You probably don't want to 
 
 L["channel"] = "Channel"
 L["channel_desc"] = "Add name to chat messages in this custom channel. Single Channel Only."
+
+L["community"] = "Community"
+L["community_desc"] = "Add name to chat messages in the Selected Community channels. Seperate with comma."
 
 L["hideOnMatchingCharName"] = "Hide name if it matches your character's name"
 L["hideOnMatchingCharName_desc"] = "If the name specified above matches your current character's name, IncognitoResurrected will not add it again if this option is checked."

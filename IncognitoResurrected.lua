@@ -1,4 +1,4 @@
---  Version: 1.3.3
+--  Version: 1.4.0
 IncognitoResurrected = LibStub("AceAddon-3.0"):NewAddon("IncognitoResurrected",
                                                         "AceConsole-3.0",
                                                         "AceEvent-3.0",
