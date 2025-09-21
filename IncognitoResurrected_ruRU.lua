@@ -61,9 +61,9 @@ L["hideOnMatchingCharName_desc"] =
     "Если указанное выше имя совпадает с именем вашего текущего персонажа, IncognitoResurrected не будет добавлять его снова, если эта опция включена."
 
 L["channel_info_text"] =
-    "Say channel is part of the World Chat option.\nThis is a limitation within the Blizzard API."
+    "Скажем, канал — это не вариант. Это ограничение в рамках API Blizzard."
 L["community_info_text"] =
-    "Currently this is an all or nothing option for community channels."
+    "В настоящее время это вариант «все или ничего» для каналов сообщества."
 
 L["ignoreLeadingSymbols"] =
     "Игнорировать начальные символы"
