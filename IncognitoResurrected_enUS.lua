@@ -41,10 +41,10 @@ L["debug"] = "Debug"
 L["debug_desc"] = "Enable debugging messages output. You probably don't want to enable this."
 
 L["channel"] = "Channel"
-L["channel_desc"] = "Add name to chat messages in this custom channel. Single Channel Only."
+L["channel_desc"] = "Add name to chat messages in this custom channel. Use comma to seperate channel names."
 
 L["community"] = "Community"
-L["community_desc"] = "Add name to chat messages in the Selected Community channels. Seperate with comma."
+L["community_desc"] = "Add name to chat messages in the Community channels."
 
 L["hideOnMatchingCharName"] = "Hide name if it matches your character's name"
 L["hideOnMatchingCharName_desc"] = "If the name specified above matches your current character's name, IncognitoResurrected will not add it again if this option is checked."
