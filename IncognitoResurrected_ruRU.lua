@@ -49,11 +49,11 @@ L["debug_desc"] =
 
 L["channel"] = "Канал"
 L["channel_desc"] =
-    "Добавлять имя в сообщения чата в этом пользовательском канале. Только один канал."
+    "Добавляйте имя к сообщениям чата в этом пользовательском канале. Используйте запятую для разделения имен каналов.."
 
-L["community"] = "Community"
+L["community"] = "Сообщество"
 L["community_desc"] =
-    "Add name to chat messages in the Selected Community channels. Seperate with comma."
+    "Добавляйте имя к сообщениям в чате в каналах сообщества."
 
 L["hideOnMatchingCharName"] =
     "Скрыть имя, если оно совпадает с именем персонажа"
