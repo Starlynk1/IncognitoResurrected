@@ -49,7 +49,7 @@ L["community_desc"] = "Add name to chat messages in the Community channels."
 L["hideOnMatchingCharName"] = "Hide name if it matches your character's name"
 L["hideOnMatchingCharName_desc"] = "If the name specified above matches your current character's name, IncognitoResurrected will not add it again if this option is checked."
 
-L["channel_info_text"] = "Say channel is part of the World Chat option.\nThis is a limitation within the Blizzard API."
+L["channel_info_text"] = "Say channel is not an option. This is a limitation within the Blizzard API."
 L["community_info_text"] = "Currently this is an all or nothing option for community channels."
 
 L["ignoreLeadingSymbols"] = "Ignore leading symbols"
