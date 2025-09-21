@@ -19,5 +19,7 @@ embeds.xml
 IncognitoResurrected_enUS.lua
 IncognitoResurrected_deDE.lua
 IncognitoResurrected_ruRU.lua
+IncognitoResurrected_esES.lua
 
 IncognitoResurrected.lua
+
