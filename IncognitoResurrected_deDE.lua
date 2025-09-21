@@ -41,10 +41,10 @@ L["debug"] = "Debug"
 L["debug_desc"] = "Aktiviert die Ausgabe von Debugnachrichten. Am besten deaktiviert lassen."
 
 L["channel"] = "Kanal"
-L["channel_desc"] = "Deinen Namen in diesem benutzerdefinierten Kanal anzeigen."
+L["channel_desc"] = "Fügen Sie Chatnachrichten in diesem benutzerdefinierten Kanal einen Namen hinzu. Verwenden Sie Kommas, um die Kanalnamen zu trennen."
 
-L["community"] = "Community"
-L["community_desc"] = "Add name to chat messages in the Selected Community channels. Seperate with comma."
+L["community"] = "Gemeinschaft"
+L["community_desc"] = "Fügen Sie Chat-Nachrichten in den Community-Kanälen einen Namen hinzu."
 
 L["hideOnMatchingCharName"] = "Name nicht anzeigen, wenn er mit dem Charakternamen übereinstimmt"
 L["hideOnMatchingCharName_desc"] = "Wenn der oben angegebene Name gleich dem Namen deines aktuellen Charakters ist, fügt ihn IncognitoResurrected nicht hinzu, wenn diese Option ausgewählt ist."
