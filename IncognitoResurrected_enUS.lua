@@ -1,4 +1,4 @@
--- Version 1.3.2
+-- Version 1.4.0
 
 local L = LibStub("AceLocale-3.0"):NewLocale("IncognitoResurrected", "enUS", true)
 
@@ -41,12 +41,16 @@ L["debug"] = "Debug"
 L["debug_desc"] = "Enable debugging messages output. You probably don't want to enable this."
 
 L["channel"] = "Channel"
-L["channel_desc"] = "Add name to chat messages in this custom channel. Single Channel Only."
+L["channel_desc"] = "Add name to chat messages in this custom channel. Use comma to seperate channel names."
+
+L["community"] = "Community"
+L["community_desc"] = "Add name to chat messages in the Community channels."
 
 L["hideOnMatchingCharName"] = "Hide name if it matches your character's name"
 L["hideOnMatchingCharName_desc"] = "If the name specified above matches your current character's name, IncognitoResurrected will not add it again if this option is checked."
 
-L["channel_info_text"] = "Say channel is not an acceptable option.\nThis is a limitation within the Blizzard API."
+L["channel_info_text"] = "Say channel is not an option. This is a limitation within the Blizzard API."
+L["community_info_text"] = "Currently this is an all or nothing option for community channels."
 
 L["ignoreLeadingSymbols"] = "Ignore leading symbols"
 L["ignoreLeadingSymbols_desc"] = "If a message starts with any of these characters (after any spaces), do not add the name prefix."

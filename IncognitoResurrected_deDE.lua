@@ -1,4 +1,4 @@
--- Version 1.3.3
+-- Version 1.4.0
 local L = LibStub("AceLocale-3.0"):NewLocale("IncognitoResurrected", "enUS",
                                              true)
 
@@ -41,12 +41,16 @@ L["debug"] = "Debug"
 L["debug_desc"] = "Aktiviert die Ausgabe von Debugnachrichten. Am besten deaktiviert lassen."
 
 L["channel"] = "Kanal"
-L["channel_desc"] = "Deinen Namen in diesem benutzerdefinierten Kanal anzeigen."
+L["channel_desc"] = "Fügen Sie Chatnachrichten in diesem benutzerdefinierten Kanal einen Namen hinzu. Verwenden Sie Kommas, um die Kanalnamen zu trennen."
+
+L["community"] = "Gemeinschaft"
+L["community_desc"] = "Fügen Sie Chat-Nachrichten in den Community-Kanälen einen Namen hinzu."
 
 L["hideOnMatchingCharName"] = "Name nicht anzeigen, wenn er mit dem Charakternamen übereinstimmt"
 L["hideOnMatchingCharName_desc"] = "Wenn der oben angegebene Name gleich dem Namen deines aktuellen Charakters ist, fügt ihn IncognitoResurrected nicht hinzu, wenn diese Option ausgewählt ist."
 
-L["channel_info_text"] = "Weltkanäle sind keine zulässigen Optionen.\nDies ist eine Einschränkung der Blizzard-API."
+L["channel_info_text"] = "Say Channel ist keine Option. Dies ist eine Einschränkung innerhalb der Blizzard-API."
+L["community_info_text"] = "Derzeit ist dies eine Alles-oder-Nichts-Option für Community-Kanäle."
 
 L["colorizePrefix"] = "Namenspräfix in Klassenfarbe färben"
 L["colorizePrefix_desc"] = "Färbt jedes führende eingeklammerte Namenspräfix ((), [], {}, <>) in der Klassenfarbe des Absenders auf deinem Client."
