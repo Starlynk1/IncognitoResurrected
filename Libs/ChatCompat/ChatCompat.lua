@@ -34,7 +34,7 @@ end
 -- Uses C_RestrictedActions when available or falls back to GetInstanceInfo.
 local function IsAddonRestricted()
     if type(C_RestrictedActions) == "table" and
-       type(C_RestrictedActions.GetAddOnRestrictionState) == "function" then
+        type(C_RestrictedActions.GetAddOnRestrictionState) == "function" then
         for _, restrictType in ipairs({1, 2, 3, 4}) do -- Encounter, ChallengeMode, PvPMatch, Map
             if C_RestrictedActions.GetAddOnRestrictionState(restrictType) ~= 0 then
                 return true
@@ -183,19 +183,23 @@ function ChatCompat:HookChatEditBoxes(addon)
         end)
 
         -- Strip prefix when the user browses sent-message history (Up/Down).
+        -- Deferred via C_Timer.After(0) so the strip runs AFTER WoW's
+        -- OnArrowPressed handler has loaded the history text into the editbox.
         editBox:HookScript("OnKeyDown", function(eb, key)
             if key ~= "UP" and key ~= "DOWN" then return end
             if not addon._prefixEnabled then return end
 
-            -- Skip prefix injection when addon restrictions are active (encounter, M+, PvP, etc.)
+            -- Skip when addon restrictions are active (encounter, M+, PvP, etc.)
             if IsAddonRestricted() then return end
 
-            local text = eb:GetText()
-            if not text or text == "" then return end
-            local prefix = addon:GetNamePrefix()
-            if text:sub(1, #prefix) == prefix then
-                eb:SetText(text:sub(#prefix + 1))
-            end
+            C_Timer.After(0, function()
+                local text = eb:GetText()
+                if not text or text == "" then return end
+                local prefix = addon:GetNamePrefix()
+                if text:sub(1, #prefix) == prefix then
+                    eb:SetText(text:sub(#prefix + 1))
+                end
+            end)
         end)
 
         editBox._chatCompatHooked = true

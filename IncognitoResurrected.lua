@@ -1,4 +1,4 @@
---  Version: 1.5.0
+--  Version: 1.5.1
 IncognitoResurrected = LibStub("AceAddon-3.0"):NewAddon("IncognitoResurrected",
                                                         "AceConsole-3.0",
                                                         "AceEvent-3.0");
@@ -230,7 +230,9 @@ local Options = {
 local Defaults = {
     profile = {
         enable = true,
+        name = "",
         guild = true,
+        party = false,
         dungeon = false,
         raid = false,
         battleground = false,
@@ -240,6 +242,7 @@ local Defaults = {
         channel = nil,
         community = false,
         hideOnMatchingCharName = true,
+        partialMatchMode = "disabled",
         -- Default bracket style
         bracketStyle = "paren",
         -- Class-color the bracketed prefix in chat frames
@@ -267,6 +270,16 @@ function IncognitoResurrected:OnInitialize()
     self:RegisterChatCommand("inc", "SlashCommand")
     self:RegisterChatCommand("incognito", "SlashCommand")
     self:RegisterChatCommand("debug", "SlashDebug")
+    -- Profile change callbacks — re-apply state when switching/resetting profiles
+    local function onProfileChanged()
+        -- Refresh the config UI so get() reads from the new profile
+        LibStub("AceConfigRegistry-3.0"):NotifyChange(
+            "IncognitoResurrected Options")
+    end
+    self.db.RegisterCallback(self, "OnProfileChanged", onProfileChanged)
+    self.db.RegisterCallback(self, "OnProfileCopied", onProfileChanged)
+    self.db.RegisterCallback(self, "OnProfileReset", onProfileChanged)
+    self.db.RegisterCallback(self, "OnNewProfile", onProfileChanged)
     -- Store API detection flags
     self._useCChatInfo = ChatCompat.api.useCChatInfo
     self._useCClubInfo = ChatCompat.api.useCClub
