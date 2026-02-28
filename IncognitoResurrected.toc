@@ -1,4 +1,4 @@
-## Interface: 11507, 50500, 110107, 110200, 120000, 120001
+## Interface: 11507, 20505, 50500, 110107, 110200, 120000, 120001
 ## Title: Incognito Resurrected
 ## Notes: Adds your name to chat messages
 
@@ -23,4 +23,5 @@ IncognitoResurrected_ruRU.lua
 IncognitoResurrected_esES.lua
 
 IncognitoResurrected.lua
+
 
