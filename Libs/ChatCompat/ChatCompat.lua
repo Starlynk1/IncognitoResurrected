@@ -30,6 +30,25 @@ local function isModernRetail()
     return tocVersion and tocVersion >= 110000
 end
 
+-- Returns true if addon restrictions are active (encounter, M+, PvP, restricted map).
+-- Uses C_RestrictedActions when available or falls back to GetInstanceInfo.
+local function IsAddonRestricted()
+    if type(C_RestrictedActions) == "table" and
+       type(C_RestrictedActions.GetAddOnRestrictionState) == "function" then
+        for _, restrictType in ipairs({1, 2, 3, 4}) do -- Encounter, ChallengeMode, PvPMatch, Map
+            if C_RestrictedActions.GetAddOnRestrictionState(restrictType) ~= 0 then
+                return true
+            end
+        end
+        return false
+    end
+    if type(GetInstanceInfo) == "function" then
+        local _, instanceType = GetInstanceInfo()
+        return instanceType == "pvp" or instanceType == "arena"
+    end
+    return false
+end
+
 ---------------------------------------------------------------------
 -- API Detection
 ---------------------------------------------------------------------
@@ -154,24 +173,29 @@ function ChatCompat:HookChatEditBoxes(addon)
             -- Channel target via method (Midnight) or field (Classic)
             local target = (eb.GetChannelTarget and eb:GetChannelTarget()) or
                                eb.channelTarget
-
             if not chatType then return end
 
-            -- On modern Retail (TWW / Midnight), SetText() from addon
-            -- code taints the editbox text in combat instances and
-            -- Blizzard's secure send path rejects it
-            -- (ADDON_ACTION_FORBIDDEN).  Skip prefix injection when
-            -- inside a combat instance on those clients only.
-            -- MoP Classic uses EditBox hooks too but has no taint issue.
-            if isModernRetail() and type(GetInstanceInfo) == "function" then
-                local _, instanceType = GetInstanceInfo()
-                if instanceType == "pvp" or instanceType == "arena" then
-                    return
-                end
-            end
+            -- Skip prefix injection when addon restrictions are active (encounter, M+, PvP, etc.)
+            if IsAddonRestricted() then return end
 
             local newText = addon:ProcessOutgoingText(text, chatType, target)
             if newText and newText ~= text then eb:SetText(newText) end
+        end)
+
+        -- Strip prefix when the user browses sent-message history (Up/Down).
+        editBox:HookScript("OnKeyDown", function(eb, key)
+            if key ~= "UP" and key ~= "DOWN" then return end
+            if not addon._prefixEnabled then return end
+
+            -- Skip prefix injection when addon restrictions are active (encounter, M+, PvP, etc.)
+            if IsAddonRestricted() then return end
+
+            local text = eb:GetText()
+            if not text or text == "" then return end
+            local prefix = addon:GetNamePrefix()
+            if text:sub(1, #prefix) == prefix then
+                eb:SetText(text:sub(#prefix + 1))
+            end
         end)
 
         editBox._chatCompatHooked = true
