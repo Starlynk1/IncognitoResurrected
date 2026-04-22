@@ -1,4 +1,4 @@
--- Version 1.5.1
+-- Version 1.5.2
 local L = LibStub("AceLocale-3.0"):NewLocale("IncognitoResurrected", "esES",
                                              true)
 if not L then return end

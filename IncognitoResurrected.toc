@@ -1,9 +1,9 @@
-## Interface: 11507, 20505, 50500, 110107, 110200, 120000, 120001
+## Interface: 11508, 20505, 50503, 110107, 110200, 120000, 120005
 ## Title: Incognito Resurrected
 ## Notes: Adds your name to chat messages
 
 ## Author: info@starlynk.net
-## Version: 1.5.1
+## Version: 1.5.2
 ## Category: Chat
 ## SavedVariables: IncognitoResurrectedDB
 ## OptionalDeps: Ace3
