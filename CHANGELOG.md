@@ -1,5 +1,13 @@
 # Incognito Resurrected
 
+## [v2.0.0](https://github.com/Starlynk1/IncognitoResurrected/tree/v2.0.0) (2026-09-19)
+
+- Replaced the Ace3 engine with the native Incognito2 rewrite
+- Secret-safe chat prefixing for Retail 12.1 and Forever
+- Global vs per-character profiles (defaults to global)
+- Rebuilds AceDB `IncognitoResurrectedDB` and beta `Incognito2DB` into the new 1/0 schema on first load
+- Original 1.5.1 code is archived on branch `archive/original-1.5.1`
+
 ## [v1.5.1](https://github.com/Starlynk1/IncognitoResurrected/tree/v1.5.1) (2026-02-28)
 [Full Changelog](https://github.com/Starlynk1/IncognitoResurrected/compare/v1.5.0...v1.5.1) [Previous Releases](https://github.com/Starlynk1/IncognitoResurrected/releases)
 

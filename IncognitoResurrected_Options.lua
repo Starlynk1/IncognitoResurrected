@@ -1,8 +1,8 @@
 ---------------------------------------------------------------------
--- Incognito2 native options panel (Ace3 optional, not required)
+-- Incognito Resurrected native options panel (no Ace3)
 ---------------------------------------------------------------------
 local _, ns = ...
-local I2 = ns.Incognito2
+local I2 = ns.IncognitoResurrected
 local L = I2.L
 
 local widgets = {}
@@ -214,10 +214,10 @@ function I2:CreateOptionsPanel()
     if self.optionsPanel then return end
 
     local panel = CreateFrame("Frame")
-    panel.name = self.embedded and "Incognito2 Beta" or "Incognito2"
+    panel.name = "Incognito Resurrected"
     self.optionsPanel = panel
 
-    local scroll = CreateFrame("ScrollFrame", "Incognito2OptionsScroll", panel,
+    local scroll = CreateFrame("ScrollFrame", "IncognitoResurrectedOptionsScroll", panel,
                                "UIPanelScrollFrameTemplate")
     scroll:SetPoint("TOPLEFT", 6, -8)
     scroll:SetPoint("BOTTOMRIGHT", -30, 8)
@@ -259,15 +259,9 @@ function I2:CreateOptionsPanel()
     local status = AddLabel(content, "", "GameFontHighlightSmall")
     status:SetWidth(520)
     status:SetWordWrap(true)
-    Put(status, LEFT, 28)
+    Put(status, LEFT, 22)
     widgets[#widgets + 1] = function()
-        if I2:ShouldActivate() and I2:IsActive() then
-            status:SetText("|cff00ff00" .. L.engineActive .. "|r")
-        elseif I2.embedded then
-            status:SetText("|cffffcc00" .. L.engineIdle .. "|r")
-        else
-            status:SetText("|cff00ff00" .. L.engineActive .. "|r")
-        end
+        status:SetText(L.Loaded)
     end
 
     local globalCb = CreateCheck(content, "UICheckButtonTemplate")
@@ -317,7 +311,7 @@ function I2:CreateOptionsPanel()
     bracketLabel:SetPoint("TOPLEFT", content, "TOPLEFT", LEFT + DROP_COL, y)
     Next(16)
 
-    local partial = AddDropdown(content, "Incognito2PartialDropDown",
+    local partial = AddDropdown(content, "IncognitoPartialDropDown",
                                 "partialMatchMode", {
         {value = "disabled", label = L.partialMatchMode_disabled},
         {value = "start", label = L.partialMatchMode_start},
@@ -325,7 +319,7 @@ function I2:CreateOptionsPanel()
         {value = "end", label = L.partialMatchMode_end}
     })
     Put(partial, LEFT - 16)
-    local bracket = AddDropdown(content, "Incognito2BracketDropDown",
+    local bracket = AddDropdown(content, "IncognitoBracketDropDown",
                                 "bracketStyle", {
         {value = "paren", label = "(round)"},
         {value = "square", label = "[square]"},
@@ -435,5 +429,6 @@ function I2:OpenOptions()
         return
     end
     self:Print("Open Interface Options and look for " ..
-                   (self.optionsPanel and self.optionsPanel.name or "Incognito2"))
+                   (self.optionsPanel and self.optionsPanel.name or
+                       "Incognito Resurrected"))
 end

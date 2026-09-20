@@ -1,7 +1,6 @@
 ---------------------------------------------------------------------
--- Incognito2 chat
--- Same behaviour as the original addon, rewritten for a cheap hot path
--- and for Midnight / Forever secret values.
+-- Incognito Resurrected chat
+-- Cheap hot path for Midnight / Forever secret values.
 --
 -- Secret rule: never compare, match, index, or take the length of a
 -- value until I2.Usable(value) is true. Pass secrets through unchanged.
@@ -11,7 +10,7 @@
 -- Classic Era: wrap the global send functions.
 ---------------------------------------------------------------------
 local _, ns = ...
-local I2 = ns.Incognito2
+local I2 = ns.IncognitoResurrected
 
 local state = {
     send = nil,
