@@ -1,0 +1,33 @@
+## Interface: 11507, 20505, 50500, 110107, 110200, 120000, 120001, 120007, 120100, 120105
+## Title: Incognito Resurrected
+## Notes: Adds your name to chat messages
+
+## Author: info@starlynk.net
+## Version: 1.5.1
+## Category: Chat
+## SavedVariables: IncognitoResurrectedDB, Incognito2DB
+## OptionalDeps: Ace3
+
+## X-Curse-Project-ID: 961634
+
+
+#@no-lib-strip@
+embeds.xml
+#@end-no-lib-strip@
+
+Libs\ChatCompat\ChatCompat.lua
+
+IncognitoResurrected_enUS.lua
+IncognitoResurrected_deDE.lua
+IncognitoResurrected_ruRU.lua
+IncognitoResurrected_esES.lua
+
+IncognitoResurrected.lua
+
+# Incognito2 beta engine (activated by the in-game beta toggle)
+Incognito2\Incognito2_Locales.lua
+Incognito2\Incognito2.lua
+Incognito2\Incognito2_Chat.lua
+Incognito2\Incognito2_Options.lua
+
+
