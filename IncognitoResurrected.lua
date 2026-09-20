@@ -1,5 +1,5 @@
 ---------------------------------------------------------------------
--- Incognito Resurrected  2.0.0
+-- Incognito Resurrected  2.0.1
 -- Native ADDON_LOADED / PLAYER_LOGIN (no Ace3).
 -- Settings live in IncognitoResurrectedDB (global vs per-character).
 -- AceDB (1.5.x) and Incognito2DB (beta) are rebuilt on first load.
@@ -11,7 +11,7 @@ ns.IncognitoResurrected = I2
 _G.IncognitoResurrected = I2
 
 I2.addonName = ADDON_NAME
-I2.version = "2.0.0"
+I2.version = "2.0.1"
 I2.SCHEMA_VERSION = 2
 
 -- SavedVariables flags must be 1/0. Forever (and some Retail builds)

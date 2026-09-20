@@ -1,5 +1,9 @@
 # Incognito Resurrected
 
+## [v2.0.1](https://github.com/Starlynk1/IncognitoResurrected/tree/v2.0.1) (2026-09-19)
+
+- Packaged releases are now named `IncognitoResurrected-vX.Y.Z` on GitHub and CurseForge.
+
 ## [v2.0.0](https://github.com/Starlynk1/IncognitoResurrected/tree/v2.0.0) (2026-09-19)
 
 Authors Note: Sorry for being AFK for a while, but life is always interesting and time was not
