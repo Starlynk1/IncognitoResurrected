@@ -2,3 +2,5 @@
 Thumbs.db
 *.bak
 *.swp
+.env
+.release/
