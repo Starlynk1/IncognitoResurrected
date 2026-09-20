@@ -2,11 +2,25 @@
 
 ## [v2.0.0](https://github.com/Starlynk1/IncognitoResurrected/tree/v2.0.0) (2026-09-19)
 
-- Replaced the Ace3 engine with the native Incognito2 rewrite
-- Secret-safe chat prefixing for Retail 12.1 and Forever
-- Global vs per-character profiles (defaults to global)
-- Rebuilds AceDB `IncognitoResurrectedDB` and beta `Incognito2DB` into the new 1/0 schema on first load
-- Original 1.5.1 code is archived on branch `archive/original-1.5.1`
+This is a full rewrite of the addon. Ace3 is gone. Chat prefixing, options, and saved variables are all native now.
+
+**Chat**
+- Retail and Forever prefix through the official edit-box send path. `C_ChatInfo.SendChatMessage` is never replaced.
+- Secret chat text is prefixed by concatenation only. The addon does not compare, match, or measure those strings.
+- Open-world combat still prefixes. Prefixing is skipped during encounter, Mythic+, PvP match, restricted map, or chat messaging lockdown.
+- Classic Era still wraps `SendChatMessage`. MoP uses the edit-box path.
+
+**Settings**
+- New options panel in `/inc` or `/incognito`. `/inc2` still opens the same panel.
+- Global profile is the default. Turn it off for a per-character profile (different guilds or mains).
+- Dungeon, raid, battleground, and arena toggles stay disabled on Retail and Forever while those restrictions apply.
+
+**Saved variables**
+- First load rebuilds old AceDB settings and any Incognito2 beta profile into the new 1/0 flag schema.
+- Your existing name and channel options should carry over. Reload once after updating.
+
+**Support**
+- TOC covers Classic Era, Classic, MoP, Retail 12.0/12.1, and Forever.
 
 ## [v1.5.1](https://github.com/Starlynk1/IncognitoResurrected/tree/v1.5.1) (2026-02-28)
 [Full Changelog](https://github.com/Starlynk1/IncognitoResurrected/compare/v1.5.0...v1.5.1) [Previous Releases](https://github.com/Starlynk1/IncognitoResurrected/releases)
