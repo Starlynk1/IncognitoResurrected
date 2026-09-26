@@ -1,8 +1,9 @@
+package-as: IncognitoResurrected
 enable-toc-creation: yes
-
-optional-dependencies:
-  - Ace3
+manual-changelog: RELEASE_NOTES.md
+changelog-title: Incognito Resurrected
 
 ignore:
   - .github
   - .env
+  - .gitignore

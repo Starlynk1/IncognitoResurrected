@@ -1,8 +1,8 @@
 # Incognito Resurrected
 
-#### Incognito adds your specified name in front of your chat messages. Incongito Resurrrected can be enabled for guild (and officer), party and raid chat messages.
+Incognito adds your specified name in front of your chat messages. Incognito Resurrected can be enabled for guild (and officer), party, raid, world, custom, and community chat.
 
-###### Note: Midnight API changes have limited certain aspects of the Addon. Addon now 'disables' in Combat Instances and 'enables' once outside of those instances.
+Midnight and Forever API changes limit prefixing while addon restrictions or secret-value chat lockdown is active (encounters, Mythic+, PvP matches, and some maps). Open-world combat still prefixes.
 
 ## Example
 
@@ -14,50 +14,47 @@ becomes
 
 ## Usage
 
-**You can use the GUI config dialog or the slash commands /incognito or /inc slash
-options**
+Use the GUI (`/inc` or `/incognito`) or slash commands:
 
-- /incognito config - Open configuration dialog
-- /incognito enable - Enable or disable adding your name to chat messages
-- /incognito name - The name that should be displayed in your chat messages
+- `/inc` — Open the configuration dialog
+- `/inc name <name>` — Set the name shown in front of your messages
+- `/inc debug` — Toggle debug output
+- `/inc help` — Show slash-command help
 
-## AddOns Options
+`/inc2` and `/incognito2` still open the same panel.
 
-- Enable - Enable adding your name to chat messages.
-- Name - The name that should be displayed in your chat messages
-- Guild - Add name to guild chat messages
-- Party - Add name to party chat messages
-- Raid - Add name to raid chat messages
-- LFR - Add name to LFR specific instance messsages (Option disabled for Classic Era)
-- World - Add name to world chat messages, e.g., General, Trade, LocalDefense and
-  Services  
-   (This is an all or none option, you cannot select which World Channel to
-  enable/disable)
-- Channel - Add name to chat messages in a custom channel  
-   (Use comma-separation to add multiple channels)
-- Community - Add name to chat messages in the Community channels.  
-   (Option disabled for Classic)
-- Debug - Enable debugging messages output. You probably don't want to enable this
+## Options
+
+- **Use global profile** — Share settings across characters, or turn this off for a per-character
+  profile
+- **Enable** — Add your name to chat messages
+- **Name** — The name displayed in your chat messages
+- **Color Name by class** — Color the prefix with the sender's class color
+- **Hide name if it matches your character's name** — Skip the prefix when it would repeat your
+  character name
+- **Guild** — Guild and officer chat (`/g`, `/o`)
+- **Party / Dungeon / Raid / Battleground / Arena** — Instance toggles are skipped on Retail and
+  Forever while restrictions are active
+- **World Chat** — General, Trade, LocalDefense, and Services (all or none)
+- **Channel** — Custom channels, comma-separated
+- **Community** — Community channels (Retail)
+- **Debug** — Debug output
 
 ## Known Issues
 
 ## Features and Bugs
 
-If you have a feature request of find a bug please report them through the Github
-repository:  
+If you have a feature request or find a bug please report them through the Github repository:  
 https://github.com/Starlynk1/IncognitoResurrected/issues
 
 ## Translations
 
 Translations are initially done using a translation website.  
 Please submit a ticket with updated translations if/when there is a better wording.  
-New languages are always appreciated. Please submit a ticket with those if you want to
-help.
+New languages are always appreciated.
 
 ## Credits
 
-Resurrected Author: Starlynk  
+Resurrected Author: Starlynk
 
-##
-
-### Version: 1.5.2
+### Version: 2.0.1
