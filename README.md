@@ -56,9 +56,7 @@ help.
 
 ## Credits
 
-Original Author: Nyyr  
 Resurrected Author: Starlynk  
-Contributors: TheIceBadger, Hubbotu
 
 ##
 
