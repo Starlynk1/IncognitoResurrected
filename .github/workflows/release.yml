@@ -26,20 +26,4 @@ jobs:
       - name: Package and release
         uses: BigWigsMods/packager@v2
         with:
-          # Tag as v2.1.0. Zip, CurseForge label, and GitHub title become
-          # IncognitoResurrected-v2.1.0
-          args: >-
-            -p 961634
-            -n "{package-name}-{project-version}:{package-name}-{project-version}"
-
-      - name: Set GitHub release title
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          tag="${GITHUB_REF_NAME}"
-          if [[ "$tag" == IncognitoResurrected-* ]]; then
-            title="$tag"
-          else
-            title="IncognitoResurrected-${tag}"
-          fi
-          gh release edit "$tag" --repo "$GITHUB_REPOSITORY" --title "$title"
+          args: "-p 961634"

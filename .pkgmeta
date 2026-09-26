@@ -1,6 +1,6 @@
 package-as: IncognitoResurrected
 enable-toc-creation: yes
-manual-changelog: CHANGELOG.md
+manual-changelog: RELEASE_NOTES.md
 changelog-title: Incognito Resurrected
 
 ignore:

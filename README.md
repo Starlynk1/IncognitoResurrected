@@ -2,7 +2,7 @@
 
 Incognito adds your specified name in front of your chat messages. Incognito Resurrected can be enabled for guild (and officer), party, raid, world, custom, and community chat.
 
-Midnight API changes limit prefixing while addon restrictions or secret-value chat lockdown is active (encounters, Mythic+, PvP matches, and some maps). Open-world combat still prefixes.
+Midnight and Forever API changes limit prefixing while addon restrictions or secret-value chat lockdown is active (encounters, Mythic+, PvP matches, and some maps). Open-world combat still prefixes.
 
 ## Example
 
@@ -25,13 +25,16 @@ Use the GUI (`/inc` or `/incognito`) or slash commands:
 
 ## Options
 
-- **Use global profile** — Share settings across characters, or turn this off for a per-character profile
+- **Use global profile** — Share settings across characters, or turn this off for a per-character
+  profile
 - **Enable** — Add your name to chat messages
 - **Name** — The name displayed in your chat messages
 - **Color Name by class** — Color the prefix with the sender's class color
-- **Hide name if it matches your character's name** — Skip the prefix when it would repeat your character name
+- **Hide name if it matches your character's name** — Skip the prefix when it would repeat your
+  character name
 - **Guild** — Guild and officer chat (`/g`, `/o`)
-- **Party / Dungeon / Raid / Battleground / Arena** — Instance toggles are skipped on Retail and Forever while restrictions are active
+- **Party / Dungeon / Raid / Battleground / Arena** — Instance toggles are skipped on Retail and
+  Forever while restrictions are active
 - **World Chat** — General, Trade, LocalDefense, and Services (all or none)
 - **Channel** — Custom channels, comma-separated
 - **Community** — Community channels (Retail)
@@ -41,8 +44,7 @@ Use the GUI (`/inc` or `/incognito`) or slash commands:
 
 ## Features and Bugs
 
-If you have a feature request or find a bug please report them through the Github
-repository:  
+If you have a feature request or find a bug please report them through the Github repository:  
 https://github.com/Starlynk1/IncognitoResurrected/issues
 
 ## Translations
@@ -53,8 +55,6 @@ New languages are always appreciated.
 
 ## Credits
 
-Original Author: Nyyr  
-Resurrected Author: Starlynk  
-Contributors: TheIceBadger, Hubbotu
+Resurrected Author: Starlynk
 
 ### Version: 2.0.1

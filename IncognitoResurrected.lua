@@ -86,16 +86,18 @@ function I2:DetectFlavor()
                               "function"
     local flavor = {
         toc = toc,
-        classicEra = toc > 0 and toc < 20000,
+        classicEra = toc > 0 and toc < 16000,
+        forever = toc >= 16000 and toc < 20000,
         mopClassic = toc >= 50000 and toc < 110000,
         retailTWW = toc >= 110000 and toc < 120000,
-        midnightOrForever = toc >= 120000 or hasSecrets,
+        midnightOrForever = toc >= 120000 or (toc >= 16000 and toc < 20000) or
+            hasSecrets,
         hasCChatInfo = hasCChatInfo,
         hasCClub = hasCClub,
         hasSecrets = hasSecrets,
         hasRestrictedActions = hasRestricted,
         hasInstanceChat = ChatTypeInfo and ChatTypeInfo["INSTANCE_CHAT"] ~= nil,
-        hasArenas = toc >= 20000,
+        hasArenas = toc >= 16000,
         -- EditBox pre-hook whenever C_ChatInfo exists (MoP / Retail / Forever).
         -- Never replace C_ChatInfo.SendChatMessage on those clients.
         useEditBoxHook = hasCChatInfo,

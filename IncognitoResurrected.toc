@@ -1,4 +1,4 @@
-## Interface: 11507, 20505, 50500, 110107, 110200, 120000, 120001, 120007, 120100, 120105
+## Interface: 11509, 16001, 20506, 50504, 120100
 ## Title: Incognito Resurrected
 ## Notes: Adds your name to chat messages
 ## Author: info@starlynk.net
